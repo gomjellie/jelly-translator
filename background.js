@@ -1,3 +1,7 @@
+/*original source 
+  https://github.com/vitvad/Access-Control-Allow-Origin/blob/master/background.js
+ */
+
 var accessControlRequestHeaders;
 var exposedHeaders;
 
