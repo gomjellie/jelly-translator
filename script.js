@@ -3,7 +3,7 @@ function query(src) {
     chrome.tabs.executeScript({
         code: "document.querySelector('body').innerText"
     }, function(result) {
-        var res = translate();
+        var res = translate(result);
         document.querySelector('#result').innerText = res; //#이 붙으면 id값
     });
 }
