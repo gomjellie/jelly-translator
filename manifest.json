@@ -20,5 +20,16 @@
         "<all_urls>",
         "*://*.google.com/",
         "background"
-    ]
+    ],
+    "content_security_policy": [
+        "script-src 'self' 'unsafe-eval'; object-src 'self'",
+        "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
+    ],
+    "content_scripts":[{
+     "js": ["script.js", "translate.js"],
+     "matches": ["http://*/*", "https://*/*"]
+   }],
+   "content_security_policy": "script-src 'self' 'unsafe-eval' script.js; object-src 'self'",
+   "content_security_policy": "script-src 'self' 'unsafe-eval' translate.js; object-src 'self'",
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

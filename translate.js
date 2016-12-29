@@ -11,7 +11,7 @@ Yb = "+",
 Zb = "+-3^+b+-f";
 
 // TKK was extracted from https://translate.google.com/
-TKK=eval('((function(){var a\x3d2285686357;var b\x3d-372919212;return 406407+\x27.\x27+(a+b)})())');
+//TKK=eval('((function(){var a\x3d2285686357;var b\x3d-372919212;return 406407+\x27.\x27+(a+b)})())');
 
 sM = function(a) {
     return function() {
@@ -74,7 +74,9 @@ function translate() {
         	//3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
             if (req.status == 200) {//status code 200 means OK
                 var res_arr = eval(req.responseText);
-                alert(res_arr[0][0][0]);
+                //alert(res_arr[0][0][0]);
+                document.querySelector('#result').innerText = res_arr[0][0][0];
+                return res_arr[0][0][0];
             }
         }
     }
@@ -83,5 +85,6 @@ function translate() {
 
 document.getElementById("button").addEventListener('click', function(event) {
     console.log("clicked");
+    //alert("hello");
+    translate();
 });
-translate();
