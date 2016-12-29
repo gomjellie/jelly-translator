@@ -66,7 +66,7 @@ var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&
 */
 function translate(what_to_search) {
     req = new XMLHttpRequest();
-    url = base_url + "tk=" + vM(what_to_search) + "q=" + encodeURI(what_to_search);
+    url = base_url + "tk=" + vM(what_to_search) + "&q=" + encodeURI(what_to_search);
     req.open("GET", url, true);
 
     req.onreadystatechange = function(aEvt) {
@@ -75,8 +75,8 @@ function translate(what_to_search) {
             //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
             if (req.status == 200) { //status code 200 means OK
                 var res_arr = eval(req.responseText);
-                alert(res_arr[0][0][0]);
-                //document.querySelector('#result').innerText = res_arr[0][0][0];
+                //alert(res_arr[0][0][0]);
+                document.querySelector('#result').innerText = res_arr[0][0][0];
                 return res_arr[0][0][0];
             }
         }
