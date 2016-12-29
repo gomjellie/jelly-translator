@@ -15,8 +15,8 @@ function matching(user) {
 
 //컨텐츠 페이지의 #user 입력된 값이 변경 되었을때
 //컨텐츠 페이지에 등장하는 몇개의 단어가 등장하는지 계산해주세요
-document.querySelector('#user').addEventListener('change', function() {
-    var user = document.querySelector('#user').value;
+document.querySelector('#src').addEventListener('change', function() {
+    var user = document.querySelector('#src').value;
 
     //크롬 스토리지에 입력값을 저장한다.
     chrome.storage.sync.set({

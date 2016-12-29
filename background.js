@@ -82,7 +82,7 @@ function reload() {
         chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 
         if (result.active) {
-            alert("activated");
+            //alert("activated");
             if (result.urls.length) {
 
                 /*Add Listeners*/
@@ -95,7 +95,7 @@ function reload() {
                 }, ["blocking", "requestHeaders"]);
             }
         } else {
-            alert("deactivated");
+            //alert("deactivated");
         }
     });
 }
