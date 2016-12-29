@@ -84,7 +84,7 @@ function translate(what_to_search) {
     req.send();
 }
 
-document.getElementById("button").addEventListener('click', function(event) {
-    console.log("clicked");
-    //alert("hello");
-});
+// document.getElementById("button").addEventListener('click', function(event) {
+//     console.log("clicked");
+//     //alert("hello");
+// });
