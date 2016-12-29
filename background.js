@@ -1,4 +1,4 @@
-/*original source 
+/*original source
   https://github.com/vitvad/Access-Control-Allow-Origin/blob/master/background.js
  */
 
@@ -65,7 +65,7 @@ var responseListener = function(details) {
 
 /*On install*/
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.local.set({ 'active': false });
+    chrome.storage.local.set({ 'active': true });
     chrome.storage.local.set({ 'urls': ["<all_urls>"] });
     chrome.storage.local.set({ 'exposedHeaders': '' });
     reload();
@@ -82,7 +82,7 @@ function reload() {
         chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 
         if (result.active) {
-            chrome.browserAction.setIcon({ path: "on.png" });
+            alert("activated");
             if (result.urls.length) {
 
                 /*Add Listeners*/
@@ -95,7 +95,7 @@ function reload() {
                 }, ["blocking", "requestHeaders"]);
             }
         } else {
-            chrome.browserAction.setIcon({ path: "off.png" });
+            alert("deactivated");
         }
     });
 }

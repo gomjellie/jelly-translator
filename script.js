@@ -24,4 +24,8 @@ document.querySelector('#user').addEventListener('change', function() {
     });
 
     matching(user);
+
+    chrome.storage.local.set({ 'active': true });
+    chrome.extension.getBackgroundPage().reload();
+    alert("hello");
 })

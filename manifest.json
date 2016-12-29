@@ -18,6 +18,7 @@
         "webRequest",
         "webRequestBlocking",
         "<all_urls>",
-        "*://*.google.com/"
+        "*://*.google.com/",
+        "background"
     ]
 }
