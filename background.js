@@ -16,7 +16,7 @@ var DefaultSettings = {
   'active': false,
   'urls': ['https://translate.google.com/*'],//['*://*/*'],
   'exposedHeaders': '',
-  'Origin': 'http://evil.com/'
+  'Origin': 'https://translate.google.com/#auto/ko/'
   },
   accessControlRequests = {};
 
