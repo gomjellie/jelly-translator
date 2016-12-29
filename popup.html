@@ -16,17 +16,26 @@
     #result {
         font-size: 2.5rem;
     }
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
     </style>
 </head>
 
 <body>
-    <h1>jelly translator</h1>
-    <textarea id="src" rows="3" placeholder="string to translate HERE" autofocus></textarea>
-    <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
-    <!--input type="button" id="button" value="button" checked/-->
-    <div id="result"></div>
-    <script src="translate.js"></script>
-    <script src="script.js"></script>
+    <div class="ui vertical masthead center aligned random segment" style="padding:1em 0em">
+        <div class="ui container">
+            <div class="header">
+                <h1>jelly translator</h1>
+            </div>
+            <textarea id="src" rows="3" placeholder="string to translate HERE" autofocus></textarea>
+            <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
+            <!--input type="button" id="button" value="button" checked/-->
+
+            <div id="result" class="value"></div>
+            <script src="translate.js"></script>
+            <script src="script.js"></script>
+        </div>
+    </div>
 </body>
 
 </html>
