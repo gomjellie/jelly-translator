@@ -4,63 +4,84 @@
 <head>
     <style>
     body {
-        width: 400px;
-        padding: 0em;
+        font-family: "roboto", "Helvetica-Light", "Lucida Grande", sans-serif;
+        color: #454545;
+        background-color: #FFFFFF;
     }
 
     textarea {
         width: 100%;
+        margin-top: 10px;
         font-size: 0.8rem;
-        border: 0.1em solid thick #AFC;
+        border-bottom: 1em solid thick #ccc;
         outline: none;
-        overflow:auto;
-        position:relative;
+        overflow: hidden;
+        position: relative;
         font-family: 'roboto', sans-serif;
-        border-radius: 3px 3px 3px 3px;
-        box-shadow: 2px 1px 0px 1px;
-        border:none;
+        border: none;
+    }
+
+    p {
+        font-size: 0.8rem;
+        color: #aaa;
+        font-weight: bold;
+        padding-top: 1em;
+        border-top: 1px solid #ccc;
+    }
+
+    #button {
+        font-family: "roboto" margin: 10px 0px 5px;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+        border: none;
+        border-radius: 4px;
+        font-size: 17px;
+        width: 19em;
+        color: #FFFFFF;
+        background-color: #454545;
     }
 
     #result {
-        font-size: 1.3rem;
-        font-family: 'roboto', sans-serif;
+        font-family: "roboto" padding-bottom: 1em;
+        margin-left: 3px;
+        font-size: 1rem;
+        font-weight: bold;
     }
 
-    #src{margin:8px 0 16px 0}
-    footer{
-        font-size: 0.7em;
-        font-family: 'roboto', sans-serif;
+    #footer {
+        width="100%";
+        font-family: roboto;
+        font-size: 9px;
+        background-color: #e7e7e7;
+        padding: 0.5em 0em 0.5em 0em;
+        font-weight: bold;
     }
-
-    input[type="text"]{
-        height: auto;
-        line-height: normal;
-        padding: .3em .3em;
-    }
-
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
     </style>
 </head>
 
 <body>
-    <div class="ui vertical masthead center aligned random segment">
+    <!--h1><img src="./banner.png" width="370px" style="padding:0em 0.25em 0.5em"></h1-->
+    <div class="ui vertical masthead center aligned random segment" style="padding:0em 0em 1em">
         <div class="ui container">
             <div class="header">
-                <!--<h1>jelly translator</h1>-->
             </div>
-            <textarea id="src" rows="3" placeholder="jellyTranslator" autofocus></textarea>
-            <!--input type="TEXT" id = "src" rows="2" placeholder = "translate" autofocus></input-->
-            <!--input type="button" id="button" value="button" checked/-->
+            <textarea id="src" rows="2" placeholder="string to translate HERE" autofocus></textarea>
+            <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
+            <br>
+            <p>Result</p>
             <div id="result" class="value"></div>
             <script src="translate.js"></script>
             <script src="script.js"></script>
+            <br/>
+            <input type="button" id="button" value="Translate This Page" checked/>
         </div>
     </div>
 </body>
-<footer align="right">
-    <div id="footer" >
-        <a href="https://gomjellie.github.io" target="_blank" title="blog">gomjellie</a> extends translate.google.com
+<footer>
+    <div id="footer" align="center">
+        &copy; 2016 <a href="http://gomjellie.github.io" target="_blank" title="blog">gomjellie</a> - jellyTranslator
     </div>
 </footer>
 
