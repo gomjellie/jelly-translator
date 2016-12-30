@@ -11,11 +11,33 @@
     textarea {
         width: 100%;
         font-size: 0.8rem;
+        border: 0.1em solid thick #AFC;
+        outline: none;
+        overflow:auto;
+        position:relative;
+        font-family: 'roboto', sans-serif;
+        border-radius: 3px 3px 3px 3px;
+        box-shadow: 2px 1px 0px 1px;
+        border:none;
     }
 
     #result {
         font-size: 1.3rem;
+        font-family: 'roboto', sans-serif;
     }
+
+    #src{margin:8px 0 16px 0}
+    footer{
+        font-size: 0.7em;
+        font-family: 'roboto', sans-serif;
+    }
+
+    input[type="text"]{
+        height: auto;
+        line-height: normal;
+        padding: .3em .3em;
+    }
+
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
     </style>
@@ -25,20 +47,20 @@
     <div class="ui vertical masthead center aligned random segment">
         <div class="ui container">
             <div class="header">
-                <h1>jelly translator</h1>
+                <!--<h1>jelly translator</h1>-->
             </div>
-            <textarea id="src" rows="3" placeholder="string to translate HERE" autofocus></textarea>
-            <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
-            <input type="button" id="button" value="button" checked/>
+            <textarea id="src" rows="3" placeholder="jellyTranslator" autofocus></textarea>
+            <!--input type="TEXT" id = "src" rows="2" placeholder = "translate" autofocus></input-->
+            <!--input type="button" id="button" value="button" checked/-->
             <div id="result" class="value"></div>
             <script src="translate.js"></script>
             <script src="script.js"></script>
         </div>
     </div>
 </body>
-<footer>
-    <div id="footer">
-        &copy; 2016 jellyTranslator-<a href="https://gomjellie.github.io" target="_blank" title="blog">gomjellie</a>
+<footer align="right">
+    <div id="footer" >
+        <a href="https://gomjellie.github.io" target="_blank" title="blog">gomjellie</a> extends translate.google.com
     </div>
 </footer>
 

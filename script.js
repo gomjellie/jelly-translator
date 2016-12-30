@@ -47,3 +47,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         sendResponse({value: clickedEl.value});
     }
 });
+
+//automatic resize text area using jQuery
+//$('textarea').autoResize();
