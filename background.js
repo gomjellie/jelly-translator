@@ -16,7 +16,7 @@ var DefaultSettings = {
   'active': false,
   'urls': ['https://translate.google.com/*'],//['*://*/*'],
   'exposedHeaders': '',
-  'Origin': 'https://translate.google.com/#auto/ko/'
+  'Origin': 'https://translate.google.com/'
   },
   accessControlRequests = {};
 
@@ -25,7 +25,7 @@ var exposedHeaders;
 var requestRules = [{
   'data': {
     'name': 'Origin',
-    'value': 'http://evil.com/'
+    'value': 'https://translate.google.com/#auto/'
   },
   'mandatory': true,
   'fn': null
@@ -221,3 +221,10 @@ chrome.runtime.onInstalled.addListener(function (details) {
   });
   reload();
 });
+
+function mycallback(info, tab) {
+    chrome.tabs.sendMessage(tab.id, "getClickedEl", function(clickedEl) {
+        alert(clickedEl.value);
+        elt.value = clickedEl.value;
+    });
+}

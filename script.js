@@ -18,7 +18,7 @@ chrome.storage.sync.get(function (data) {
 });
 
 //컨텐츠 페이지의 #src 입력된 값이 변경 되었을때
-document.querySelector('#src').addEventListener('change', function() {
+document.querySelector('#src').addEventListener('input', function() {
     var src = document.querySelector('#src').value;
 
     //크롬 스토리지에 입력값을 저장한다.
@@ -31,4 +31,19 @@ document.querySelector('#src').addEventListener('change', function() {
     chrome.storage.local.set({ 'active': true });
     chrome.extension.getBackgroundPage().reload();
     //alert("hello");
-})
+});
+
+var clickedEl = null;
+
+document.addEventListener("mousedown", function(event){
+    //right click
+    if(event.button == 2) {
+        clickedEl = event.target;
+    }
+}, true);
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if(request == "getClickedEl") {
+        sendResponse({value: clickedEl.value});
+    }
+});

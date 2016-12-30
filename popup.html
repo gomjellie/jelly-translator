@@ -10,11 +10,11 @@
 
     textarea {
         width: 100%;
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     #result {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
@@ -29,13 +29,17 @@
             </div>
             <textarea id="src" rows="3" placeholder="string to translate HERE" autofocus></textarea>
             <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
-            <!--input type="button" id="button" value="button" checked/-->
-
+            <input type="button" id="button" value="button" checked/>
             <div id="result" class="value"></div>
             <script src="translate.js"></script>
             <script src="script.js"></script>
         </div>
     </div>
 </body>
+<footer>
+    <div id="footer">
+        &copy; 2016 jellyTranslator-<a href="http://www.gomjellie.github.io" target="_blank" title="blog">gomjellie</a>
+    </div>
+</footer>
 
 </html>

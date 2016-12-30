@@ -120,5 +120,5 @@ function translate(what_to_search) {
 
 // document.getElementById("button").addEventListener('click', function(event) {
 //     console.log("clicked");
-//     //alert("hello");
+//     alert("hello");
 // });
