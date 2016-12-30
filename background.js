@@ -222,9 +222,3 @@ chrome.runtime.onInstalled.addListener(function (details) {
   reload();
 });
 
-function mycallback(info, tab) {
-    chrome.tabs.sendMessage(tab.id, "getClickedEl", function(clickedEl) {
-        alert(clickedEl.value);
-        elt.value = clickedEl.value;
-    });
-}
