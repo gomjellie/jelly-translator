@@ -4,57 +4,75 @@
 <head>
     <style>
     body {
-        font-family: "roboto", "Helvetica-Light", "Lucida Grande", sans-serif;
-        color: #454545;
+        font-family: "Helvetica-Light", "roboto", sans-serif;
         background-color: #FFFFFF;
+        color: #454545;
     }
 
     textarea {
-        width: 100%;
-        margin-top: 10px;
+        font-family: "Helvetica-Light", 'roboto', sans-serif;
         font-size: 0.8rem;
-        border-bottom: 1em solid thick #ccc;
+        width: 100%;
+        border: none;
         outline: none;
         overflow: hidden;
         position: relative;
-        font-family: 'roboto', sans-serif;
-        border: none;
+        margin-top: 10px;
     }
 
     p {
+        font-family: "Helvetica-Light", "sans-serif";
         font-size: 0.8rem;
-        color: #aaa;
+        color: #ed894d;
         font-weight: bold;
         padding-top: 1em;
         border-top: 1px solid #ccc;
     }
 
     #button {
-        font-family: "roboto" margin: 10px 0px 5px;
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
+        width: 19em;
+        font-family: "Helvetica-Light", "roboto";
+        font-size: 17px;
+        padding-top: 1px;
+        padding-bottom: 2px;
         border: none;
         border-radius: 4px;
-        font-size: 17px;
-        width: 19em;
-        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        outline: none;
+    }
+
+     .myButton:hover {
         background-color: #454545;
+        color: #FFFFFF;
+    }
+
+    .myButton:checked{
+
+        color: #FFFFFF;
+    }
+
+    .myButton:active {
+        background-color: #505050;
+        color: #FFFFFF;
+        position: relative;
+        top: 1px;
+        bottom: 2px;
     }
 
     #result {
-        font-family: "roboto" padding-bottom: 1em;
-        margin-left: 3px;
+        font-family: "Helvetica-Light", "roboto";
         font-size: 1rem;
         font-weight: bold;
+        padding-bottom: 1em;
     }
 
     #footer {
         width="100%";
-        font-family: roboto;
+        font-family: "roboto", "Helvetica-Light", sans-serif;
         font-size: 9px;
         background-color: #e7e7e7;
         padding: 0.5em 0em 0.5em 0em;
-        font-weight: bold;
     }
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
@@ -63,25 +81,23 @@
 
 <body>
     <!--h1><img src="./banner.png" width="370px" style="padding:0em 0.25em 0.5em"></h1-->
-    <div class="ui vertical masthead center aligned random segment" style="padding:0em 0em 1em">
-        <div class="ui container">
-            <div class="header">
-            </div>
-            <textarea id="src" rows="2" placeholder="string to translate HERE" autofocus></textarea>
-            <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
-            <br>
-            <p>Result</p>
-            <div id="result" class="value"></div>
-            <script src="translate.js"></script>
-            <script src="script.js"></script>
-            <br/>
-            <input type="button" id="button" value="Translate This Page" checked/>
+    <div class="ui container">
+        <div class="header">
         </div>
+        <textarea id="src" rows="2" placeholder="JellyTranslator &#13;&#10;made by gomjellie & fetiu" autofocus></textarea>
+        <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
+        <br>
+        <p>RESULT</p>
+        <div id="result" class="value"></div>
+        <script src="translate.js"></script>
+        <script src="script.js"></script>
+        <br/>
+        <input type="button" id="button" class="myButton" value="Translate This Page" checked/>
     </div>
 </body>
 <footer>
     <div id="footer" align="center">
-        &copy; 2016 <a href="http://gomjellie.github.io" target="_blank" title="blog">gomjellie</a> - jellyTranslator
+        &copy; 2016 <a href="http://gomjellie.github.io" target="_blank" title="blog">gomjellie</a> <a id="options-link" target="_blank" href="options.html">options</a>
     </div>
 </footer>
 
