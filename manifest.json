@@ -37,8 +37,7 @@
         "128": "src/icons/jelly translator icon128.png"
     },
     "web_accessible_resources": [
-        "popup_css_compiled.css",
         "options.html"
     ],
-    "options_page": "options.html",
+    "options_page": "options.html"
 }

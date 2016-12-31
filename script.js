@@ -8,29 +8,10 @@ function query(src) {
     });
 }
 
-// 저장되어있던 값 불러오기
-// chrome.storage.sync.get(function (data) {
-//   // #src의 값으로 data의 값을 입력해주세요.
-//   document.querySelector('#src').value = data.previousVal;
-
-//   //분석해서 그 결과를 #result에 넣어주세요.
-//   query(data.previousVal);
-// });
-
 //컨텐츠 페이지의 #src 입력된 값이 변경 되었을때
 document.querySelector('#src').addEventListener('input', function() {
     var src = document.querySelector('#src').value;
-
-    //크롬 스토리지에 입력값을 저장한다.
-    // chrome.storage.sync.set({
-    //     previousVal: src
-    // });
-
     query(src);
-
-    //chrome.storage.local.set({ 'active': true });
-    //chrome.extension.getBackgroundPage().reload();
-    //alert("hello");
 });
 
 var clickedEl = null;

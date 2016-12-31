@@ -4,42 +4,92 @@
 <head>
     <title id="options-page-title"></title>
     <!-- compiled files -->
+    <style>
+    #button {
+        width: 19em;
+        font-family: "Helvetica-Light", "roboto";
+        font-size: 17px;
+        padding-top: 1px;
+        padding-bottom: 2px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+        outline: none;
+    }
+
+    .saveBtn:hover {
+        background-color: #454545;
+        color: #FFFFFF;
+    }
+
+    .saveBtn:checked {
+        color: #FFFFFF;
+    }
+
+    .resetBtn:hover {
+        background-color: #454545;
+        color: #FFFFFF;
+    }
+
+    .resetBtn:checked {
+        color: #FFFFFF;
+    }
+
+    a:link {
+        text-decoration: none;
+        color: #333333;
+    }
+
+    a:visited {
+        text-decoration: none;
+        color: #333333;
+    }
+
+    a:active {
+        text-decoration: none;
+        color: #333333;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        color: red;
+    }
+
+    #targetLangSel{
+        box-sizing:content-box
+    }
+    </style>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
-    <script src="options_compiled.js"></script>
 </head>
 
 <body>
     <div class="ui vertical masthead center aligned random segment" style="padding:0em 0em 1em">
         <div id="ui container">
             <h1>
-        <img src='https://ssl.gstatic.com/translate/google_translate_logo.png'
-             title="Google Translate" alt="Google Translate"><br>
-         <div id="options-title-heading"></div>
+        <img src='src/panda_captured.png'><br>
       </h1>
-            <div class="ui/2">
+            <div class="ui options">
                 <div id="lang-option" class="option_name"></div>
                 <div class="option_picker">
                     <select id="targetLangSel" class="jfk-button jfk-button-standard"></select>
                 </div>
             </div>
-            <div class="ui/2">
-                <div id="popup-option" class="option_name"></div>
-                <div id="popup-option-content" class="option_picker">
-                    <div id="popup-option-title"></div>
+            <ul class="ui buttons">
+                <div id="saveBtn" class="jfk-button-action">
+                    <input type="button" id="button" class="saveBtn" value="Save Settings">
                 </div>
-            </div>
-            <div class="ui buttons">
-                <div id="saveBtn" class="jfk-button-action"></div>
-                <div id="resetBtn" class="jfk-button-standard"></div>
+                <div id="resetBtn" class="jfk-button-standard">
+                    <input type="button" id="button" class="resetBtn" value="Reset">
+                </div>
                 <span id="saveStatus" style="display:none"></span>
-            </div>
+            </ul>
         </div>
         <!-- end of content div -->
-        <div class="ui footer">
-            <a id="footer-homepage" href="http://translate.google.com/"></a>
-        </div>
-        <div class="ui footer">&copy;2015 Google -
-            <a id="footer-privacy" href="http://www.google.com/privacy.html"></a>
+        <div class="ui footer">&copy;
+            <a id="footer" href="https://gomjellie.github.io" target="_blank">gomjellie</a>
+            <br>
+            <div>jellyTranslator extends <a href="https://translate.google.com" target="_blank">translate.google.com</a></div>
         </div>
     </div>
 </body>
