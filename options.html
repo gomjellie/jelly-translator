@@ -6,7 +6,7 @@
     <!-- compiled files -->
     <style>
     #button {
-        width: 19em;
+        width: 15em;
         font-family: "Helvetica-Light", "roboto";
         font-size: 17px;
         padding-top: 1px;
@@ -37,6 +37,18 @@
         text-align: center;
     }
 
+    .src{
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+
+    .buttons{
+    }
+
+    .saveBtn{
+
+    }
     .saveBtn:hover {
         background-color: #454545;
         color: #FFFFFF;
@@ -69,6 +81,17 @@
         position: relative;
         top: 1px;
         bottom: 2px;
+    }
+
+
+    .fender{
+        width: auto;
+        height: auto;
+    }
+
+    .fender img{
+        max-width: 90%;
+        height: auto;
     }
 
     a {
@@ -167,8 +190,8 @@
                         <!-- 현재 사용중인 language리스트 출처: https://ctrlq.org/code/19899-google-translate-languages-->
                         <!--https://developers.google.com/adwords/api/docs/appendix/codes-formats#languages 안되면 여기껄로-->
                     </datalist>
-                    <input id="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input>
-                    <h1><img src='src/panda_captured.png'><br></h1>
+                    <input id="src" class="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input>
+                    <h1 class="fender"><img src='src/panda_captured.png'><br></h1>
                 </div>
             </div>
             <ul class="ui buttons">
