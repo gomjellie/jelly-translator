@@ -2,7 +2,7 @@
 $("#target").submit(function(event) {
     var lang_selected = $("input:first").val();
     if (lang_selected) {
-        alert("Handler for .submit() called." + lang_selected);
+        alert("" + lang_selected + " have saved as target language");
         chrome.storage.sync.set({
             tar_lang: lang_selected
         });
