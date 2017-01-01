@@ -3,6 +3,9 @@
 
 <head>
     <title id="options-page-title"></title>
+    <script src="validateFormOnSubmit.js"></script>
+
+    </script>
     <!-- compiled files -->
     <style>
     #button {
@@ -37,18 +40,15 @@
         text-align: center;
     }
 
-    .src{
+    .src {
         overflow-y: auto;
         overflow-x: hidden;
     }
 
+    .buttons {}
 
-    .buttons{
-    }
+    .saveBtn {}
 
-    .saveBtn{
-
-    }
     .saveBtn:hover {
         background-color: #454545;
         color: #FFFFFF;
@@ -83,13 +83,12 @@
         bottom: 2px;
     }
 
-
-    .fender{
+    .fender {
         width: auto;
         height: auto;
     }
 
-    .fender img{
+    .fender img {
         max-width: 90%;
         height: auto;
     }
@@ -190,7 +189,9 @@
                         <!-- 현재 사용중인 language리스트 출처: https://ctrlq.org/code/19899-google-translate-languages-->
                         <!--https://developers.google.com/adwords/api/docs/appendix/codes-formats#languages 안되면 여기껄로-->
                     </datalist>
-                    <input id="src" class="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input>
+                    <form action="#" onsubmit="return validateFormOnSubmit(this);">
+                        <input id="src" class="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input>
+                    </form>
                     <h1 class="fender"><img src='src/panda_captured.png'><br></h1>
                 </div>
             </div>

@@ -19,10 +19,6 @@ chrome.commands.onCommand.addListener(function(command) {
     }
 });
 
-
-
-
-
 ////////////////////////////
 var DefaultSettings = {
         'active': false,
@@ -195,9 +191,6 @@ var reload = function() {
             chrome.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 
             if (result.active) {
-                chrome.browserAction.setIcon({
-                    path: 'images/on.png'
-                });
 
                 if (result.urls.length) {
                     /*Add Listeners*/
@@ -210,9 +203,7 @@ var reload = function() {
                     }, ['blocking', 'requestHeaders']);
                 }
             } else {
-                chrome.browserAction.setIcon({
-                    path: 'images/off.png'
-                });
+
             }
         });
 };
