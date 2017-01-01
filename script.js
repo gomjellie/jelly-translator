@@ -16,18 +16,19 @@ document.querySelector('#src').addEventListener('input', function() {
 
 var clickedEl = null;
 
-document.addEventListener("mousedown", function(event){
+document.addEventListener("mousedown", function(event) {
     //right click
-    if(event.button == 2) {
+    if (event.button == 2) {
         clickedEl = event.target;
     }
 }, true);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if(request == "getClickedEl") {
-        sendResponse({value: clickedEl.value});
+    if (request == "getClickedEl") {
+        sendResponse({ value: clickedEl.value });
     }
 });
+
 
 //automatic resize text area using jQuery
 //$('textarea').autoResize();

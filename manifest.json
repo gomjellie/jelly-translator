@@ -5,6 +5,7 @@
     "description": "translates all page",
     "version": "1.0",
     "background": {
+        "persistent": true,
         "scripts": ["background.js"]
     },
     "browser_action": {
@@ -39,5 +40,22 @@
     "web_accessible_resources": [
         "options.html"
     ],
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "commands": {
+        "toggle": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+X",
+                "mac": "Command+Shift+Z"
+            },
+            "description": "Display Id and URL of the current open/active tab."
+        },
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+D",
+                "mac": "Command+D",
+                "chromeos": "Ctrl+D",
+                "linux": "Ctrl+D"
+            }
+        }
+    }
 }

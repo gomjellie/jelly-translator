@@ -18,6 +18,24 @@
         outline: none;
     }
 
+    #src {
+        font-family: "Helvetica-Light", 'roboto', sans-serif;
+        width: 20%;
+        font-size: 0.8rem;
+        border: 0.1em solid thick #AFC;
+        outline: none;
+        overflow: hidden;
+        position: relative;
+        font-family: 'roboto', sans-serif;
+        border-radius: 3px 3px 3px 3px;
+        box-shadow: 0px 0px 2px 2px;
+        border: none;
+        margin-bottom: 15px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        text-align: center;
+    }
+
     .saveBtn:hover {
         background-color: #454545;
         color: #FFFFFF;
@@ -26,6 +44,7 @@
     .saveBtn:checked {
         color: #FFFFFF;
     }
+
     .saveBtn:active {
         background-color: #505050;
         color: #FFFFFF;
@@ -42,6 +61,7 @@
     .resetBtn:checked {
         color: #FFFFFF;
     }
+
     .resetBtn:active {
         background-color: #505050;
         color: #FFFFFF;
@@ -70,33 +90,28 @@
         color: red;
     }
 
-    #targetLangSel{
-        box-sizing:content-box
-    }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
 </head>
 
 <body>
-    <div class="ui vertical masthead center aligned random segment" style="padding:0em 0em 1em">
+    <div class="ui vertical masthead center aligned random segment">
         <div id="ui container">
             <h1>
         <img src='src/panda_captured.png'><br>
       </h1>
             <div class="ui options">
-                <div id="lang-option" class="option_name"></div>
-                <div class="option_picker">
-                    <select id="targetLangSel" class="jfk-button jfk-button-standard"></select>
+                <div id="option_picker" class="option_picker" aligned="center">
+                    <input id="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus></input>
                 </div>
             </div>
             <ul class="ui buttons">
-                <div id="saveBtn" class="jfk-button-action">
+                <div id="saveBtn">
                     <input type="button" id="button" class="saveBtn" value="Save Settings">
                 </div>
-                <div id="resetBtn" class="jfk-button-standard">
+                <div id="resetBtn">
                     <input type="button" id="button" class="resetBtn" value="Reset">
                 </div>
-                <span id="saveStatus" style="display:none"></span>
             </ul>
         </div>
         <!-- end of content div -->
