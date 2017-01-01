@@ -8,10 +8,11 @@ soup = BeautifulSoup(r.text, 'html.parser')
 table = soup.find('tbody')
 
 ret = ""
-
+ret2= ""
 for tr in table.find_all('tr'):
     td = tr.find_all('td')
     ret += "<option value=" + "\"" + td[1].text + "\">" + td[0].text + "</option>"+"\n"
-    ret += "<option value=" + "\"" + td[3].text + "\">" + td[2].text + "</option>"+"\n"
+    ret2 += "<option value=" + "\"" + td[3].text + "\">" + td[2].text + "</option>"+"\n"
 
-print(ret)
+res = ret + ret2
+print(res)
