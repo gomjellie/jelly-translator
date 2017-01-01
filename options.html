@@ -3,8 +3,6 @@
 
 <head>
     <title id="options-page-title"></title>
-    <script src="validateFormOnSubmit.js"></script>
-
     </script>
     <!-- compiled files -->
     <style>
@@ -112,6 +110,8 @@
         color: green;
     }
     </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
 </head>
 
@@ -189,7 +189,7 @@
                         <!-- 현재 사용중인 language리스트 출처: https://ctrlq.org/code/19899-google-translate-languages-->
                         <!--https://developers.google.com/adwords/api/docs/appendix/codes-formats#languages 안되면 여기껄로-->
                     </datalist>
-                    <form action="#" onsubmit="return validateFormOnSubmit(this);">
+                    <form id="target" action="#" onsubmit="return validateFormOnSubmit(this);">
                         <input id="src" class="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input>
                     </form>
                     <h1 class="fender"><img src='src/panda_captured.png'><br></h1>
@@ -210,6 +210,7 @@
             <div>jellyTranslator extends <a href="https://translate.google.com" target="_blank">translate.google.com</a></div>
         </div>
     </div>
+    <script src="validateFormOnSubmit.js"></script>
 </body>
 
 </html>

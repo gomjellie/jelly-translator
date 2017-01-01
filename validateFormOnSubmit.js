@@ -1,13 +1,6 @@
-function validateFormOnSubmit(theForm) {
-    var reason = "";
-    reason += validateName(theForm.name);
-    reason += validatePhone(theForm.phone);
-    reason += validateEmail(theForm.emaile);
-
-    if (reason != "") {
-        alert("Some fields need correction:\n" + reason);
-    } else {
-        simpleCart.checkout();
+$("#target").submit(function(event) {
+    if ($("input:first").val()) {
+        alert("Handler for .submit() called." + $("input:first").val());
     }
-    return false;
-}
+    event.preventDefault();
+});
