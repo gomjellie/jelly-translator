@@ -14,24 +14,32 @@ function translatePopup(src) {
     translate(document.querySelector("#src").value);
 }
 
-function isCommands(src) {
-    if (src == 'help' ||
-        src == 'option' ||
-        src == "who made this?" ||
-        src == "reset") {
+function isCommands(cmd) {
+    if (cmd == 'help' ||
+        cmd == 'option' ||
+        cmd == "who made this?" ||
+        cmd == "reset") {
+
         return true;
     }
     return false;
 }
 
-function handleCommand(src) {
-    if (src == 'help' || src == 'option') {
+function handleCommand(cmd) {
+    if (cmd == 'help') {
+        document.querySelector('#result').innerText = "command list:\n  /help /option /who made this? /reset";
+        return true;
+    } else if (cmd == 'option') {
         chrome.tabs.create({ "url": "/options.html", "selected": true }, function(tab) {
             console.log(tab.id);
         });
-
-        document.querySelector('#result').innerText = "/help";
-        return true;
+    } else if (cmd == 'who made this?') {
+        chrome.tabs.create({ "url": "https://gomjellie.github.io", "selected": true }, function(tab) {});
+    }else if (cmd == "reset"){
+        chrome.storage.sync.set({
+            tar_lang: 'ko'
+        });
+        document.querySelector('#result').innerText = "tar_lang: ko";
     }
 }
 
