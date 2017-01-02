@@ -1,3 +1,8 @@
+$(document).ready(function() {
+    $('select').niceSelect();
+});
+
+
 
 $("#target").submit(function(event) {
     var lang_selected = $("input:first").val();
@@ -10,8 +15,11 @@ $("#target").submit(function(event) {
     event.preventDefault();
 });
 
-
-// chrome.storage.sync.get(function(data) {
-//     if (data)
-//         alert("" + data.tar_lang);
-// });
+$("select").change(function() {
+    var lang_selected = $(this).val();
+    if (lang_selected) {
+        chrome.storage.sync.set({
+            tar_lang: lang_selected
+        });
+    }
+})

@@ -18,16 +18,17 @@
         overflow: hidden;
         position: relative;
         margin-top: 10px;
+        resize: none;<!-- 디자인은 깔끔해지는데 드래그해서 크기조절 안됨-->
     }
 
     a:link {
         text-decoration: none;
-        color: #333333;
+        color: red;
     }
 
     a:visited {
         text-decoration: none;
-        color: #333333;
+        color: red;
     }
 
     a:active {
@@ -96,7 +97,7 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
-    <!--script type="text/javascript" src="jquery-3.1.1.min.js"></script-->
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     </style>
 </head>
 
@@ -105,7 +106,7 @@
     <div class="ui container">
         <div class="header">
         </div>
-        <textarea id="src" rows="2" placeholder="JellyTranslator &#13;&#10;made by gomjellie & fetiu" autofocus></textarea>
+        <textarea id="src" rows="3" placeholder="JellyTranslator &#13;&#10;made by gomjellie & fetiu" autofocus></textarea>
         <!--input type="TEXT" id = "src" rows="3" placeholder = "translate" autofocus></input-->
         <br>
         <p>RESULT</p>

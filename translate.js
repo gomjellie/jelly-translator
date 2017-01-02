@@ -117,15 +117,15 @@ function translate(what_to_search) {
             if (req.status == 200) { //status code 200 means OK
                 var res_arr = eval(req.responseText);
                 //alert(res_arr[0][0][0]);
-                document.querySelector('#result').innerText = res_arr[0][0][0];
-                return res_arr[0][0][0];
+                var len = res_arr[0].length-1;
+                var ret="";
+                for(var i=0;i<len;i++){
+                    ret+=res_arr[0][i][0];
+                }
+                document.querySelector('#result').innerText = ret;
+                return ret;
             }
         }
     }
     req.send();
 }
-
-// document.getElementById("button").addEventListener('click', function(event) {
-//     console.log("clicked");
-//     alert("hello");
-// });
