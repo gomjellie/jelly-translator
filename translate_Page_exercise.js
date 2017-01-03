@@ -60,18 +60,19 @@ sM = function(a) {
 var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
 
+req = {};
 function translate(what_to_search, section) {
     tar_lang = "ko";
-    req = new XMLHttpRequest();
+    req[what_to_search] = new XMLHttpRequest();
     url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);
-    req.open("GET", url, false);
+    req[what_to_search].open("GET", url, true);
 
-    req.onreadystatechange = function(aEvt) {
-        if (req.readyState == 4) {
+    req[what_to_search].onreadystatechange = function(aEvt) {
+        if (req[what_to_search].readyState == 4) {
             //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
             //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-            if (req.status == 200) { //status code 200 means OK
-                var res_arr = eval(req.responseText);
+            if (req[what_to_search].status == 200) { //status code 200 means OK
+                var res_arr = eval(req[what_to_search].responseText);
                 //alert(res_arr[0][0][0]);
                 var len = res_arr[0].length - 1;
                 ret = "";
@@ -85,7 +86,7 @@ function translate(what_to_search, section) {
             }
         }
     }
-    req.send();
+    req[what_to_search].send();
 }
 
 function translatePage() {
