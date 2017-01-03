@@ -101,7 +101,7 @@ var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&
 
 
 function translatePage() {
-    $('p,h1,h2,h3,h4,h5,a').each(function() {
+    $('p,h1,h2,h3,h4,h5,a,tl').each(function() {
         console.log($(this).text());
         reg_compiled = new RegExp("decodeURI(^[A-z])?", "g"); //테스트중
         document.body.innerHTML = document.body.innerHTML.replace(reg_compiled, 'asdfqwer');

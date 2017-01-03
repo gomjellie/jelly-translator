@@ -29,14 +29,6 @@ function translatePopup(src) {
     translate(document.querySelector("#src").value);
 }
 
-// function translatePage() {
-//     $('p,h1,h2,h3,h4,h5,a').each(function() {
-//         console.log($(this).text());
-//         reg_compiled = new RegExp("decodeURI(^[A-z])?", "g"); //테스트중
-//         document.body.innerHTML = document.body.innerHTML.replace(reg_compiled, 'asdfqwer');
-//     });
-// }
-
 function isCommands(cmd) {
     if (cmd == 'help' ||
         cmd == 'option' ||
