@@ -61,6 +61,7 @@ var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
 
 req = {};
+
 function translate(what_to_search, section) {
     tar_lang = "ko";
     req[what_to_search] = new XMLHttpRequest();
@@ -88,12 +89,16 @@ function translate(what_to_search, section) {
     }
     req[what_to_search].send();
 }
+// loader = document.createElement('script');
+// loader.src = "jquery-3.1.1.min.js";
+// document.getElementsByTagName('head')[0].appendChild(loader);
 
 function translatePage() {
-    $('p').each(function() {
+    $('a, li, p').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
         translate(text, $(this));
         //     $(this).html(text.replace($(this).text(), '번역된 문장'));
     });
 }
+
