@@ -107,7 +107,7 @@ function translate(what_to_search) {
             tar_lang = "en";
     });
     req = new XMLHttpRequest();
-    url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURI(what_to_search);
+    url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search.replaceAll("", ""));
     req.open("GET", url, true);
 
     req.onreadystatechange = function(aEvt) {
@@ -123,6 +123,36 @@ function translate(what_to_search) {
                     ret+=res_arr[0][i][0];
                 }
                 document.querySelector('#result').innerText = ret;
+                return ret;
+            }
+        }
+    }
+    req.send();
+}
+
+function get_translate(what_to_search) {
+    chrome.storage.sync.get(function(data) {
+        if (data)
+            tar_lang = data.tar_lang;
+        else
+            tar_lang = "en";
+    });
+    req = new XMLHttpRequest();
+    url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search.replaceAll("", ""));
+    req.open("GET", url, true);
+
+    req.onreadystatechange = function(aEvt) {
+        if (req.readyState == 4) {
+            //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
+            //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
+            if (req.status == 200) { //status code 200 means OK
+                var res_arr = eval(req.responseText);
+                //alert(res_arr[0][0][0]);
+                var len = res_arr[0].length-1;
+                var ret="";
+                for(var i=0;i<len;i++){
+                    ret+=res_arr[0][i][0];
+                }
                 return ret;
             }
         }
