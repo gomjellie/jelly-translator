@@ -61,17 +61,88 @@ function handleCommand(cmd) {
     }
 }
 
-//팝업 페이지의 #src 입력된 값이 변경 되었을때
-if (document.querySelector("#src")) {
-    document.querySelector('#src').addEventListener('input', function() {
-        var src = document.querySelector('#src').value;
-        if (isCommands(src)) {
-            handleCommand(src);
-        } else {
-            translatePopup(src);
+// //팝업 페이지의 #src 입력된 값이 변경 되었을때
+// if (document.querySelector("#src")) {
+//     document.querySelector('#src').addEventListener('input propertychange', function() {
+//         var src = document.querySelector('#src').value;
+//         if (isCommands(src)) {
+//             handleCommand(src);
+//         } else {
+//             translatePopup(src);
+//         }
+//     });
+// }
+
+
+$('#src').on('input', function(e) {
+    var src = document.querySelector('#src').value;
+    if (isCommands(src)) {
+        handleCommand(src);
+    } else {
+        translatePopup(src);
+    }
+});
+
+// function clickHandler(e) {
+//     chrome.runtime.sendMessage({directive: "popup-click"}, function(response) {
+//         this.close(); // close the popup when the background finishes processing request
+//     });
+// }
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.getElementById('translateBtn').addEventListener('click', clickHandler);
+// })
+
+// $(function() {
+//     $("#src").on('input', function() {
+//         var src = document.querySelector('#src').value;
+//         if (isCommands(src)) {
+//             handleCommand(src);
+//         } else {
+//             translatePopup(src);
+//         }
+//     });
+// });
+$(function() {
+    $("#translateBtn").click(function(e) {
+        //alert('clicked!');
+        function executeScripts(tabId, injectDetailsArray) {
+            function createCallback(tabId, injectDetails, innerCallback) {
+                return function() {
+                    chrome.tabs.executeScript(tabId, injectDetails, innerCallback);
+                };
+            }
+
+            var callback = null;
+
+            for (var i = injectDetailsArray.length - 1; i >= 0; --i)
+                callback = createCallback(tabId, injectDetailsArray[i], callback);
+
+            if (callback !== null)
+                callback(); // execute outermost function
         }
+
+        executeScripts(null, [
+            { file: "jquery-3.1.1.min.js" },
+            { file: "translate_Page_exercise.js"},
+            { code: "translatePage();"}
+            //{ file: "test.js" },
+            //{ code: "test_function()" }
+            ]);
+        // chrome.tabs.executeScript({ code: 'document.querySelector("body").innerText;'}, function(result) {
+        //     alert(result[0]);
+        // });
     });
-}
+});
+// if (document.querySelector("#translateBtn")) {
+//     document.querySelector('#translateBtn').addEventListener('click', function() {
+//         alert("");
+//             chrome.tabs.executeScript({ code: 'document.querySelector("body").innerText' }, function(result) {
+//                     result = "";
+//                 }
+//             });
+//     }
+// }
 //automatic resize text area using jQuery
 
 //$('textarea').autoResize();

@@ -11,13 +11,37 @@
  */
 
 //chrome.browserAction.setBadgeText({text: '(o_O)|")'});
+// loader = document.createElement('script');
+// loader.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js";
+// document.getElementsByTagName('body')[0].appendChild(loader);
 
 chrome.commands.onCommand.addListener(function(command) {
     if (command == "toggle") {
-        alert("3. Resolved Command");
+        // chrome.tabs.executeScript(null, { file: 'jquery-3.1.1.min.js' }, function(r) {
+        //     chrome.tabs.executeScript(null, {
+        //         file: 'translate_Page_exercise.js'
+        //     }, function(reslut) {
+        //         setAjaxAtHead();
+        //         chrome.tabs.executeScript(null, {code:"translatePage()"},function(result){});
+        //     });
+        // });
+
+        // chrome.tabs.executeScript(null, {})
+
+
+
+
+        // chrome.tabs.executeScript(null, {
+        //     code: "alert();"
+        // }, function(result) {
+
+        // });
+        //chrome.tabs.executeScript(null, {code: 'alert();'});
+        alert("9  Resolved Command");
         // alert ("TAB ID = " + currentTabId + "\n URL =  " + currentTabURL);
     }
 });
+//chrome.tabs.executeScript(null, {file:'jquery-3.1.1.min.js'});
 
 ////////////////////////////
 var DefaultSettings = {

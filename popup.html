@@ -50,7 +50,7 @@
         border-top: 1px solid #ccc;
     }
 
-    #button {
+    #translateBtn {
         width: 19em;
         font-family: "Helvetica-Light", "roboto";
         font-size: 17px;
@@ -65,16 +65,16 @@
         color: #FFFFFF;
     }
 
-    .myButton:hover {
+    .translateBtn:hover {
         background-color: #454545;
         color: #FFFFFF;
     }
 
-    .myButton:checked {
+    .translateBtn:checked {
         color: #FFFFFF;
     }
 
-    .myButton:active {
+    .translateBtn:active {
         background-color: #505050;
         color: #FFFFFF;
         position: relative;
@@ -97,9 +97,9 @@
         padding: 0.5em 0em 0.5em 0em;
     }
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script-->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
-    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </style>
 </head>
 
@@ -113,10 +113,11 @@
         <br>
         <p>RESULT</p>
         <div id="result" class="value"></div>
+        <input type="button" id="translateBtn" class="translateBtn" value="Translate This Page" />
+        <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
         <script src="translate.js"></script>
         <script src="script.js"></script>
         <br/>
-        <input type="button" id="button" class="myButton" value="Translate This Page" checked/>
     </div>
 </body>
 <footer>

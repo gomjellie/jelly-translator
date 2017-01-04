@@ -1,4 +1,5 @@
 // WORKS!!!
+
 k = "",
     cb = "&",
     Gf = "=",
@@ -81,6 +82,7 @@ function translate(what_to_search, section) {
                     ret += res_arr[0][i][0];
                 }
                 section.html(what_to_search.replace(what_to_search, ret));
+                //section.context.childNodes[0].textContent = ret;//testing
                 //document.querySelector('#result').innerText = ret;
                 console.log(ret);
                 return ret;
@@ -93,6 +95,14 @@ function translate(what_to_search, section) {
 // loader.src = "jquery-3.1.1.min.js";
 // document.getElementsByTagName('head')[0].appendChild(loader);
 
+function setAjaxAtHead() {
+    loader = document.createElement('script');
+    loader.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js";
+    document.getElementsByTagName('head')[0].appendChild(loader);
+}
+
+
+/* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
 function translatePage() {
     $('a, li, p').each(function() {
         var text = $(this).text();
@@ -101,4 +111,3 @@ function translatePage() {
         //     $(this).html(text.replace($(this).text(), '번역된 문장'));
     });
 }
-
