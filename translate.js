@@ -142,6 +142,29 @@ function translate(what_to_search) {
                 }
                 document.querySelector('#result').innerText = ret;
                 return ret;
+            }else {
+                chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
+                document.querySelector('#result').innerText = "error occured o_O";
+                return req.responseURL;
+            }
+        }
+    }
+    req.send();
+}
+
+function send_request(url){
+    req = new XMLHttpRequest();
+    req.open("GET", url, true);
+
+    req.onreadystatechange = function(aEvt) {
+        if (req.readyState == 4) {
+            //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
+            //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
+            if (req.status == 200) { //status code 200 means OK
+
+                return req;
+            }else {
+                return req.responseURL;
             }
         }
     }

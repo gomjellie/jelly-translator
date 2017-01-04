@@ -85,6 +85,10 @@ function translate_for_page(what_to_search, section, tar_lang) {
                 //document.querySelector('#result').innerText = ret;
                 console.log(ret);
                 return ret;
+            }else if(req[what_to_search].status == 503){
+                section.text(req[what_to_search].responseURL + "  prove that you human</a>");
+                console.log(what_to_search);
+                return req.responseURL;
             }
         }
     }
@@ -98,11 +102,13 @@ function setAjaxAtHead() {
     loader = document.createElement('script');
     loader.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js";
     document.getElementsByTagName('head')[0].appendChild(loader);
+    document.getElementsByTagName('body')[0].appendChild(loader);
 }
 
 
 /* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
 function translatePage() {
+    setAjaxAtHead();
     $('a, li, p').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
