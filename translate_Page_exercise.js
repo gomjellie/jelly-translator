@@ -62,7 +62,6 @@ sM = function(a) {
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
 
 req = {};
-isDead = 0;
 chrome.storage.local.get(function(data) {
     if (data)
         tar_lang = data.tar_lang;
@@ -79,7 +78,6 @@ function translate_for_page(what_to_search, section) {
             //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
             //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
             if (req[what_to_search].status == 200) { //status code 200 means OK
-                isDead=0;
                 var res_arr = eval(req[what_to_search].responseText);
                 //alert(res_arr[0][0][0]);
                 var len = res_arr[0].length - 1;
@@ -93,16 +91,10 @@ function translate_for_page(what_to_search, section) {
                 console.log(ret);
                 return ret;
             }else if(req[what_to_search].status == 503){
-                isDead++;
-                //document.body.innerText = section.text(req[what_to_search].responseURL);
-                if(isDead >3){
-                    chrome.tabs.create({ "url": req[what_to_search].responseURL, "selected": true }, function(tab) {});
-                    document.body.innerText = "";
-                    isDead = -99999;
+                console.log(req[what_to_search].responseURL);
+                for ( var i in req){
+                    req[i].readyState != 4 ? req[i].abort() : 1;
                 }
-                section.text(req[what_to_search].responseURL);
-                console.log(what_to_search);
-                return req[what_to_search].responseURL;
             }else if(req[what_to_search].status == 403){
                     document.body.innerText = req[what_to_search].responseText;
             }
