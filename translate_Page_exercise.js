@@ -63,8 +63,7 @@ var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto
 
 req = {};
 
-function translate(what_to_search, section) {
-    tar_lang = "ko";
+function translate_for_page(what_to_search, section, tar_lang) {
     req[what_to_search] = new XMLHttpRequest();
     url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);
     req[what_to_search].open("GET", url, true);
@@ -103,11 +102,16 @@ function setAjaxAtHead() {
 
 
 /* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
-function translatePage() {
+function translatePage(tar_lang) {
     $('a, li, p').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
-        translate(text, $(this));
+        var tar_lang = "ko";
+        chrome.storage.sync.get(function(data) {
+            if (data)   { tar_lang = data.tar_lang;}
+            else{tar_lang = "ko";}
+        });
+        translate_for_page(text, $(this), tar_lang);
         //     $(this).html(text.replace($(this).text(), '번역된 문장'));
     });
 }

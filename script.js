@@ -61,27 +61,27 @@ function handleCommand(cmd) {
     }
 }
 
-// //팝업 페이지의 #src 입력된 값이 변경 되었을때
-// if (document.querySelector("#src")) {
-//     document.querySelector('#src').addEventListener('input propertychange', function() {
-//         var src = document.querySelector('#src').value;
-//         if (isCommands(src)) {
-//             handleCommand(src);
-//         } else {
-//             translatePopup(src);
-//         }
-//     });
-// }
+//팝업 페이지의 #src 입력된 값이 변경 되었을때
+if (document.querySelector("#src")) {
+    document.querySelector('#src').addEventListener('input', function() {
+        var src = document.querySelector('#src').value;
+        if (isCommands(src)) {
+            handleCommand(src);
+        } else {
+            translatePopup(src);
+        }
+    });
+}
 
 
-$('#src').on('input', function(e) {
-    var src = document.querySelector('#src').value;
-    if (isCommands(src)) {
-        handleCommand(src);
-    } else {
-        translatePopup(src);
-    }
-});
+// $('#src').on('input', function(e) {
+//     var src = document.querySelector('#src').value;
+//     if (isCommands(src)) {
+//         handleCommand(src);
+//     } else {
+//         translatePopup(src);
+//     }
+// });
 
 // function clickHandler(e) {
 //     chrome.runtime.sendMessage({directive: "popup-click"}, function(response) {
@@ -103,6 +103,7 @@ $('#src').on('input', function(e) {
 //         }
 //     });
 // });
+
 $(function() {
     $("#translateBtn").click(function(e) {
         //alert('clicked!');
