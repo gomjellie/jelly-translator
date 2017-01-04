@@ -76,7 +76,7 @@ function translate_for_page(what_to_search, section, tar_lang) {
                 var res_arr = eval(req[what_to_search].responseText);
                 //alert(res_arr[0][0][0]);
                 var len = res_arr[0].length - 1;
-                ret = "";
+                var ret = "";
                 for (var i = 0; i < len; i++) {
                     ret += res_arr[0][i][0];
                 }
@@ -102,7 +102,7 @@ function setAjaxAtHead() {
 
 
 /* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
-function translatePage(tar_lang) {
+function translatePage() {
     $('a, li, p').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
