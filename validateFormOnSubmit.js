@@ -8,7 +8,7 @@ $("#target").submit(function(event) {
     var lang_selected = $("input:first").val();
     if (lang_selected) {
         alert("" + lang_selected + " have saved as target language");
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             tar_lang: lang_selected
         });
     }
@@ -18,7 +18,7 @@ $("#target").submit(function(event) {
 $("select").change(function() {
     var lang_selected = $(this).val();
     if (lang_selected) {
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             tar_lang: lang_selected
         });
     }

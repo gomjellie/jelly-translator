@@ -58,12 +58,18 @@ sM = function(a) {
         return (a.toString() + jd + (a ^ b)) // Modified 2: Removed the beginning "c + ". Original code is "return c + (a.toString() + jd + (a ^ b))".
     };
 //TK 값은 vM("string what you want to translate here"); 의 반환값을 가져다 쓰면된다!
-var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
+//var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
 
 req = {};
-
-function translate_for_page(what_to_search, section, tar_lang) {
+isDead = 0;
+chrome.storage.local.get(function(data) {
+    if (data)
+        tar_lang = data.tar_lang;
+    else
+        tar_lang = "ko";
+});
+function translate_for_page(what_to_search, section) {
     req[what_to_search] = new XMLHttpRequest();
     url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);
     req[what_to_search].open("GET", url, true);
@@ -73,6 +79,7 @@ function translate_for_page(what_to_search, section, tar_lang) {
             //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
             //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
             if (req[what_to_search].status == 200) { //status code 200 means OK
+                isDead=0;
                 var res_arr = eval(req[what_to_search].responseText);
                 //alert(res_arr[0][0][0]);
                 var len = res_arr[0].length - 1;
@@ -86,9 +93,18 @@ function translate_for_page(what_to_search, section, tar_lang) {
                 console.log(ret);
                 return ret;
             }else if(req[what_to_search].status == 503){
-                section.text(req[what_to_search].responseURL + "  prove that you human</a>");
+                isDead++;
+                //document.body.innerText = section.text(req[what_to_search].responseURL);
+                if(isDead >3){
+                    chrome.tabs.create({ "url": req[what_to_search].responseURL, "selected": true }, function(tab) {});
+                    document.body.innerText = "";
+                    isDead = -99999;
+                }
+                section.text(req[what_to_search].responseURL);
                 console.log(what_to_search);
-                return req.responseURL;
+                return req[what_to_search].responseURL;
+            }else if(req[what_to_search].status == 403){
+                    document.body.innerText = req[what_to_search].responseText;
             }
         }
     }
@@ -109,15 +125,12 @@ function setAjaxAtHead() {
 /* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
 function translatePage() {
     setAjaxAtHead();
-    $('a, li, p').each(function() {
+
+    $('p, a, h1, h2, h3, h4, li').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
-        var tar_lang = "ko";
-        chrome.storage.sync.get(function(data) {
-            if (data)   { tar_lang = data.tar_lang;}
-            else{tar_lang = "ko";}
-        });
-        translate_for_page(text, $(this), tar_lang);
+
+        translate_for_page(text, $(this));
         //     $(this).html(text.replace($(this).text(), '번역된 문장'));
     });
 }

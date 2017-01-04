@@ -53,7 +53,7 @@ function handleCommand(cmd) {
     } else if (cmd == 'who made this?') {
         chrome.tabs.create({ "url": "https://gomjellie.github.io", "selected": true }, function(tab) {});
     } else if (cmd == "reset") {
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             tar_lang: 'ko'
         });
         document.querySelector('#result').innerText = "tar_lang: ko";

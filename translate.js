@@ -118,7 +118,7 @@ $('p').each(function() {
 
 
 function translate(what_to_search) {
-    chrome.storage.sync.get(function(data) {
+    chrome.storage.local.get(function(data) {
         if (data)
             tar_lang = data.tar_lang;
         else
