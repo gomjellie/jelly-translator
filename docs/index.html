@@ -5,7 +5,6 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link rel="stylesheet" href="static/style.css">
-
     <title>jellyTranslator extends google translate</title>
 </head>
 
@@ -25,11 +24,11 @@
         <section id="main_content">
             <!--p>Text can be <strong>bold</strong>, <em>italic</em>, or
                 <del>strikethrough</del>.</p-->
-
             <h1>소개</h1>
             <p>jellyTranslator는 번역을 돕는 크롬브라우저의 확장프로그램(extension) 입니다</p>
             <p>jellyTranslator는 내부적으로 translate.google.com을 사용합니다.</p>
             <p>현재 popup_translate과 page_translate기능 2가지를 지원합니다.</p>
+
 
 
             <h2 id="header-1header-1"><a href="#header-1"></a>팝업 번역</h2>
@@ -37,13 +36,18 @@
             <p><img src="img/pop_e2k.gif" alt="" /></p>
 
 
-            <h2 id="header-2header-2"><a href="#header-2"></a>페이지 번역</h2>
+
+            <h2 id="header-2header-2"><a href="#header-2"></a>페이지 번역(Beta)</h2>
             <!--p align="center"><img src="img/page_low.gif" alt="" /></p-->
-            <div style='position:relative;padding-bottom:132%'><iframe src='https://gfycat.com/ifr/AnotherUnrulyCrayfish' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
+            <div style='position:relative;padding-bottom:132%'>
+                <iframe src='https://gfycat.com/ifr/AnotherUnrulyCrayfish' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe>
+            </div>
             <blockquote>
-            	   <p>git 파일 로딩때문에 최초 재생시 느려 보입니다.</p>
+                <p>
+                    <del>git 파일 로딩때문에 최초 재생시 느려 보입니다.</del>
+                </p>
                 <p>페이지 번역은 아직 beta버전입니다.</p>
-                <p>오류가 있으면 밑의 오류해결 항목에서 해결해보세요.</p>
+                <p>오류가 발생하면 밑의 <a href="#bugs">오류해결 항목</a>에서 해결해보세요.</p>
             </blockquote>
             <h2 id="header-3header-3"><a href="#header-3"></a>단축키 들</h2>
             <div class="language-js highlighter-rouge">
@@ -287,6 +291,32 @@
                 </tbody>
             </table>
             <p>if you find wrong country code, report to gomjellie@gmail.com</p>
+
+
+            <section id="bugs">
+                <h2>Bugs</h2>
+                <h3>page_translate bugs</h3>
+                <ol>
+                    <li>페이지 번역중 멈추는 경우</li>
+                    <p>너무 많은양의 번역을 하면 멈출수있습니다.</p>
+                    <p>popup_translate을 띄우고 아무거나 입력하시면 새창에 recapcha가 생성됩니다.</p>
+                    <img src="img/google_503_err.png"></img>
+                    <p>사람임을 증명하고 다시 사용하시면 됩니다.</p>
+                </ol>
+                <h3>popup_translate bugs</h3>
+                <ul>
+                    <li>명령어가 가끔씩 안먹히고 번역되는 버그</li>
+                    <blockquote>
+                        <p>마지막문자 지우고 다시 천천히 입력하세요</p>
+                    </blockquote>
+                    <li>특수문자가 들어간경우 발번역되는 현상</li>
+                    <blockquote>
+                        <p>번역은 전부 머신러닝으로 학습된 translate.google이 해줍니다.</p>
+                        <p>근데 걔네도 이상한기호 막나오면 발번역합니다. 적당히 기호를 없애서 돌리세요</p>
+                    </blockquote>
+                </ul>
+            </section>
+
             <!--
             <h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</h3>
             <hr />
@@ -361,7 +391,7 @@
             </div>
         -->
             <footer>
-                <div class="ui footer" align = "center">
+                <div class="ui footer" align="center">
                     <div>&copy;<a id="footer" href="https://gomjellie.github.io" target="_blank">gomjellie</a></div>
                     <div>jellyTranslator extends <a href="https://translate.google.com" target="_blank">translate.google.com</a></div>
                 </div>
