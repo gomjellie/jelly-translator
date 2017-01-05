@@ -11,8 +11,8 @@
 <body>
     <header>
         <div class="container">
-            <h1>jelly translator</h1>
-            <h2>"Jelly translator" provides a translation interface for Chrome extensions.</h2>
+            <h1>jelly_translator --help</h1>
+            <h2>jelly translator manual page</h2>
             <section id="downloads">
                 <a href="https://github.com/pages-themes/hacker/zipball/gh-pages" class="btn">Download as .zip</a>
                 <a href="https://github.com/pages-themes/hacker/tarball/gh-pages" class="btn">Download as .tar.gz</a>
@@ -22,21 +22,24 @@
     </header>
     <div class="container">
         <section id="main_content">
-            <p>Text can be <strong>bold</strong>, <em>italic</em>, or
-                <del>strikethrough</del>.</p>
-            <p><a href="another-page">Link to another page</a>.</p>
-            <p>jellyTranslator는 내부적으로 translate.google.com을 사용합니다. 페이지번역기능을 너무 남발하면 구글서버에서 거부합니다.</p>
-            <p>There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.</p>
-            <h2 id="header-1header-1"><a href="#header-1"></a>팝업 번역</h2>
-            <p>This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.</p>
+            <!--p>Text can be <strong>bold</strong>, <em>italic</em>, or
+                <del>strikethrough</del>.</p-->
+            <h1>소개</h1>
+            <p>jellyTranslator는 번역을 돕는 크롬브라우저의 확장프로그램(extension) 입니다</p>
+            <p>jellyTranslator는 내부적으로 translate.google.com을 사용합니다.</p>
+            <p>현재 popup_translate과 page_translate기능 2가지를 지원합니다.</p>
+	<h2 id="header-1header-1"><a href="#header-1"></a>팝업 번역</h2>
+            <p><img src="img/pop_k2e.gif" alt="" /></p>
+            <p><img src="img/pop_e2k.gif" alt="" /></p>
             <h2 id="header-2header-2"><a href="#header-2"></a>페이지 번역</h2>
+            <p><img src="img/wikie2k_small.gif" alt="" /></p>
             <blockquote>
-                <p>This is a blockquote following a header.</p>
-                <p>When something is important enough, you do it even if the odds are not in your favor.</p>
+                <p>페이지 번역은 아직 beta버전입니다.</p>
+                <p>오류가 있으면 밑의 오류해결 항목에서 해결해보세요.</p>
             </blockquote>
             <h2 id="header-3header-3"><a href="#header-3"></a>단축키 들</h2>
             <div class="language-js highlighter-rouge">
-            	<pre class="highlight"><code><span class="c1">// ShortCuts Setting</span>
+                <pre class="highlight"><code><span class="c1">// ShortCuts Setting</span>
 <span class="kd">"pop_up"</span> <span class="nx">:</span> <span class="p">{</span>
   <span class="kd">"suggested key"</span><span class="nx">:</span> <span class="p">{</span>
     <span class="kd">"default"</span> <span class="o">:</span> <span class="s1">"Ctrl+Shift+X"</span><span class="p">,</span>
@@ -47,7 +50,7 @@
 </code></pre>
             </div>
             <div class="language-js highlighter-rouge">
-            	<pre class="highlight"><code><span class="c1">// ShortCuts Setting(coming soon...)</span>
+                <pre class="highlight"><code><span class="c1">// ShortCuts Setting(coming soon...)</span>
 <span class="kd">"translate_page"</span> <span class="nx">:</span> <span class="p">{</span>
   <span class="kd">"suggested key"</span><span class="nx">:</span> <span class="p">{</span>
     <span class="kd">"default"</span> <span class="o">:</span> <span class="s1">"not supported"</span><span class="p">,</span>
@@ -57,45 +60,225 @@
 <span class="p">}</span>
 </code></pre>
             </div>
-	<h4 id="header-4header-4"><a href="#header-4"></a>Header 4</h4>
-            <ul>
-                <li>This is an unordered list following a header.</li>
-                <li>This is an unordered list following a header.</li>
-                <li>This is an unordered list following a header.</li>
-            </ul>
-            <h5 id="header-5header-5"><a href="#header-5"></a>Header 5</h5>
-            <ol>
+            <h2>명령어들</h2>
+            <p>팝업창을 띄운 명령모드에서 여러가지 명령어들을 사용할 수 있습니다.</p>
+	<p><img src="img/commands.gif" alt="" /></p>
+            <h2 id="header-5header-5"><a href="#header-5">입력 모드에서 언어변경</a></h2>
+            <p>개발중</p>
+            <p>밑의 언어별 코드를 참조하세요</p>
+            <!--ol>
                 <li>This is an ordered list following a header.</li>
                 <li>This is an ordered list following a header.</li>
                 <li>This is an ordered list following a header.</li>
-            </ol>
-            <h6 id="header-6header-6"><a href="#header-6"></a>Language Codes</h6>
+            </ol-->
+            <h2 id="header-6header-6"><a href="#header-6"></a>Language Codes</h2>
             <table>
-                <thead>
-                    <tr>
-                        <th style="text-align: left">Country</th>
-                        <th style="text-align: left">Country Code</th>
-                    </tr>
-                </thead>
                 <tbody>
+                    <thead>
+                        <tr style="font-weight:bold">
+                            <th>Language Name</th>
+                            <th>Code</th>
+                            <th>Language Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
                     <tr>
-                        <td style="text-align: left">Korea</td>
-                        <td style="text-align: left">ko</td>
+                        <td>Afrikaans</td>
+                        <td>af</td>
+                        <td>Irish</td>
+                        <td>ga</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left">English</td>
-                        <td style="text-align: left">en</td>
+                        <td>Albanian</td>
+                        <td>sq</td>
+                        <td>Italian</td>
+                        <td>it</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left">Japanese</td>
-                        <td style="text-align: left">ja</td>
+                        <td>Arabic</td>
+                        <td>ar</td>
+                        <td>Japanese</td>
+                        <td>ja</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left">Chinese-simple</td>
-                        <td style="text-align: left">ch - zn</td>
+                        <td>Azerbaijani</td>
+                        <td>az</td>
+                        <td>Kannada</td>
+                        <td>kn</td>
+                    </tr>
+                    <tr>
+                        <td>Basque</td>
+                        <td>eu</td>
+                        <td>Korean</td>
+                        <td>ko</td>
+                    </tr>
+                    <tr>
+                        <td>Bengali</td>
+                        <td>bn</td>
+                        <td>Latin</td>
+                        <td>la</td>
+                    </tr>
+                    <tr>
+                        <td>Belarusian</td>
+                        <td>be</td>
+                        <td>Latvian</td>
+                        <td>lv</td>
+                    </tr>
+                    <tr>
+                        <td>Bulgarian</td>
+                        <td>bg</td>
+                        <td>Lithuanian</td>
+                        <td>lt</td>
+                    </tr>
+                    <tr>
+                        <td>Catalan</td>
+                        <td>ca</td>
+                        <td>Macedonian</td>
+                        <td>mk</td>
+                    </tr>
+                    <tr>
+                        <td>Chinese Simplified</td>
+                        <td>zh-CN</td>
+                        <td>Malay</td>
+                        <td>ms</td>
+                    </tr>
+                    <tr>
+                        <td>Chinese Traditional</td>
+                        <td>zh-TW</td>
+                        <td>Maltese</td>
+                        <td>mt</td>
+                    </tr>
+                    <tr>
+                        <td>Croatian</td>
+                        <td>hr</td>
+                        <td>Norwegian</td>
+                        <td>no</td>
+                    </tr>
+                    <tr>
+                        <td>Czech</td>
+                        <td>cs</td>
+                        <td>Persian</td>
+                        <td>fa</td>
+                    </tr>
+                    <tr>
+                        <td>Danish</td>
+                        <td>da</td>
+                        <td>Polish</td>
+                        <td>pl</td>
+                    </tr>
+                    <tr>
+                        <td>Dutch</td>
+                        <td>nl</td>
+                        <td>Portuguese</td>
+                        <td>pt</td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td>en</td>
+                        <td>Romanian</td>
+                        <td>ro</td>
+                    </tr>
+                    <tr>
+                        <td>Esperanto</td>
+                        <td>eo</td>
+                        <td>Russian</td>
+                        <td>ru</td>
+                    </tr>
+                    <tr>
+                        <td>Estonian</td>
+                        <td>et</td>
+                        <td>Serbian</td>
+                        <td>sr</td>
+                    </tr>
+                    <tr>
+                        <td>Filipino</td>
+                        <td>tl</td>
+                        <td>Slovak</td>
+                        <td>sk</td>
+                    </tr>
+                    <tr>
+                        <td>Finnish</td>
+                        <td>fi</td>
+                        <td>Slovenian</td>
+                        <td>sl</td>
+                    </tr>
+                    <tr>
+                        <td>French</td>
+                        <td>fr</td>
+                        <td>Spanish</td>
+                        <td>es</td>
+                    </tr>
+                    <tr>
+                        <td>Galician</td>
+                        <td>gl</td>
+                        <td>Swahili</td>
+                        <td>sw</td>
+                    </tr>
+                    <tr>
+                        <td>Georgian</td>
+                        <td>ka</td>
+                        <td>Swedish</td>
+                        <td>sv</td>
+                    </tr>
+                    <tr>
+                        <td>German</td>
+                        <td>de</td>
+                        <td>Tamil</td>
+                        <td>ta</td>
+                    </tr>
+                    <tr>
+                        <td>Greek</td>
+                        <td>el</td>
+                        <td>Telugu</td>
+                        <td>te</td>
+                    </tr>
+                    <tr>
+                        <td>Gujarati</td>
+                        <td>gu</td>
+                        <td>Thai</td>
+                        <td>th</td>
+                    </tr>
+                    <tr>
+                        <td>Haitian Creole</td>
+                        <td>ht</td>
+                        <td>Turkish</td>
+                        <td>tr</td>
+                    </tr>
+                    <tr>
+                        <td>Hebrew</td>
+                        <td>iw</td>
+                        <td>Ukrainian</td>
+                        <td>uk</td>
+                    </tr>
+                    <tr>
+                        <td>Hindi</td>
+                        <td>hi</td>
+                        <td>Urdu</td>
+                        <td>ur</td>
+                    </tr>
+                    <tr>
+                        <td>Hungarian</td>
+                        <td>hu</td>
+                        <td>Vietnamese</td>
+                        <td>vi</td>
+                    </tr>
+                    <tr>
+                        <td>Icelandic</td>
+                        <td>is</td>
+                        <td>Welsh</td>
+                        <td>cy</td>
+                    </tr>
+                    <tr>
+                        <td>Indonesian</td>
+                        <td>id</td>
+                        <td>Yiddish</td>
+                        <td>yi</td>
                     </tr>
                 </tbody>
+                </tr>
+                </tbody>
             </table>
+            <p>if  you find wrong country code, report to gomjellie@gmail.com</p>
             <h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</h3>
             <hr />
             <h3 id="here-is-an-unordered-list">Here is an unordered list:</h3>
@@ -155,9 +338,16 @@
                 <dt>Color</dt>
                 <dd>Green</dd>
             </dl>
+            <h4 id="header-4header-4"><a href="#header-4"></a>Header 4</h4>
+            <ul>
+                <li>This is an unordered list following a header.</li>
+                <li>This is an unordered list following a header.</li>
+                <li>This is an unordered list following a header.</li>
+            </ul>
             <div class="highlighter-rouge"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
 </code></pre>
             </div>
+
             <div class="highlighter-rouge"><pre class="highlight"><code>The final element.
 </code></pre>
             </div>
