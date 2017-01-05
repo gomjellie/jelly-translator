@@ -47,7 +47,8 @@
         "toggle": {
             "suggested_key": {
                 "default": "Ctrl+Shift+X",
-                "mac": "Command+Shift+Z"
+                "mac": "Command+Shift+Z",
+                "linux": "Ctrl + Shift + X"
             },
             "description": "Display Id and URL of the current open/active tab."
         },
