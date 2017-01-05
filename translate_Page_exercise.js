@@ -91,12 +91,11 @@ function translate_for_page(what_to_search, section) {
                 console.log(ret);
                 return ret;
             }else if(req[what_to_search].status == 503){
-                console.log(req[what_to_search].responseURL);
-                for ( var i in req){
-                    req[i].readyState != 4 ? req[i].abort() : 1;
-                }
+                //console.log(req[what_to_search].responseURL);
+                throw req[what_to_search].responseURL;
             }else if(req[what_to_search].status == 403){
-                    document.body.innerText = req[what_to_search].responseText;
+                    section.html(req[what_to_search].responseText);
+                    throw req[what_to_search].responseURL;
             }
         }
     }
@@ -121,8 +120,12 @@ function translatePage() {
     $('p, a, h1, h2, h3, h4, li').each(function() {
         var text = $(this).text();
         console.log("text %s is translated", text);
-
-        translate_for_page(text, $(this));
+        try{
+            translate_for_page(text, $(this));
+        }catch(err){
+            //chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
+            return false;
+        }
         //     $(this).html(text.replace($(this).text(), '번역된 문장'));
     });
 }

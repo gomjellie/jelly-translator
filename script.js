@@ -60,7 +60,7 @@ function handleCommand(cmd) {
     } else if (cmd == "donate") {
         document.querySelector('#result').innerText = "개발자에게 커피한잔의 여유를....\n우리은행 1002-887-373373 오인규";
     }else if (cmd == "manual"){
-        chrome.tabs.create({ "url": "https://gomjellie.github.io/chrome_translator", "selected": true }, function(tab) {});
+        chrome.tabs.create({ "url": "https://gomjellie.github.io/jelly-translator", "selected": true }, function(tab) {});
     }
 }
 

@@ -46,7 +46,7 @@ chrome.commands.onCommand.addListener(function(command) {
 ////////////////////////////
 var DefaultSettings = {
         'active': false,
-        'urls': ['*://*/*'],//['https://translate.google.com/*'], //['*://*/*'],
+        'urls': ['https://translate.google.com/*'], //['*://*/*'],
         'exposedHeaders': '',
         'Origin': 'https://translate.google.com/'
     },
@@ -240,7 +240,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         'active': true
     });
     chrome.storage.local.set({
-        'urls': ['*://*/*']//['https://translate.google.com/*'] //['*://*/*']
+        'urls': ['https://translate.google.com/*'] //['*://*/*']
     });
     chrome.storage.local.set({
         'exposedHeaders': ''
