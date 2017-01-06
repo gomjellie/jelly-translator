@@ -2,7 +2,7 @@
     https://github.com/hernansartorio/jquery-nice-select
     Made by Hernán Sartorio  */
 
-(function($) {
+(function ($) {
 
   $.fn.niceSelect = function(method) {
 
