@@ -99,24 +99,6 @@ rw - See also list.
 var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&pc=1&ssel=0&tsel=0&kc=2&tk=252101.365024&q=The%20Montreal%20Laboratory%20in%20Montreal%2C%20Canada%2C%20was%20established%20by%20the%20National%20Research%20Council%20of%20Canada%20during%20World%20War%20II%20to%20undertake%20nuclear%20research%20in%20collaboration%20with%20the%20United%20Kingdom.%20After%20the%20Fall%20of%20France%2C%20some%20French%20scientists%20escaped%20to%20Britain%20with%20their%20stock%20of%20heavy%20water%2C%20and%20joined%20the%20British%20Tube%20Alloys%20project%20to%20build%20an%20atomic%20bomb.%20In%201942%2C%20it%20was%20decided%20to%20relocate%20the%20work%20to%20Canada."
 */
 
-
-function translatePage() {
-    $('p,h1,h2,h3,h4,h5,a,tl').each(function() {
-        console.log($(this).text());
-        reg_compiled = new RegExp("decodeURI(^[A-z])?", "g"); //테스트중
-        document.body.innerHTML = document.body.innerHTML.replace(reg_compiled, 'asdfqwer');
-    });
-}
-
-function translatePage(){
-$('p').each(function() {
-    var text = $(this).text();
-    $(this).html(text.replace(/Smilodon/g, '스밀로돈'));
-    });
-}
-// IT WORKS
-
-
 function translate(what_to_search) {
     chrome.storage.local.get(function(data) {
         if (data)
@@ -151,52 +133,3 @@ function translate(what_to_search) {
     }
     req.send();
 }
-
-function send_request(url){
-    req = new XMLHttpRequest();
-    req.open("GET", url, true);
-
-    req.onreadystatechange = function(aEvt) {
-        if (req.readyState == 4) {
-            //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-            //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-            if (req.status == 200) { //status code 200 means OK
-
-                return req;
-            }else {
-                return req.responseURL;
-            }
-        }
-    }
-    req.send();
-}
-
-// var get_translate = function(what_to_search) {
-//     chrome.storage.sync.get(function(data) {
-//         if (data)
-//             tar_lang = data.tar_lang;
-//         else
-//             tar_lang = "en";
-//     });
-//     req = new XMLHttpRequest();
-//     url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search));
-//     req.open("GET", url, true);
-
-//     req.onreadystatechange = function(aEvt) {
-//         if (req.readyState == 4) {
-//             //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-//             //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-//             if (req.status == 200) { //status code 200 means OK
-//                 var res_arr = eval(req.responseText);
-//                 //alert(res_arr[0][0][0]);
-//                 var len = res_arr[0].length-1;
-//                 var ret="";
-//                 for(var i=0;i<len;i++){
-//                     ret+=res_arr[0][i][0];
-//                 }
-//                 return ret;
-//             }
-//         }
-//     }
-//     req.send();
-// }

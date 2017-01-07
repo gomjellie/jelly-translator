@@ -101,9 +101,6 @@ function translate_for_page(what_to_search, section) {
     }
     req[what_to_search].send();
 }
-// loader = document.createElement('script');
-// loader.src = "jquery-3.1.1.min.js";
-// document.getElementsByTagName('head')[0].appendChild(loader);
 
 function setAjaxAtHead() {
     loader = document.createElement('script');
