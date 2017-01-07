@@ -8,7 +8,8 @@ function isCommands(cmd) {
         cmd == "who made this?" ||
         cmd == "reset" ||
         cmd == "donate" ||
-        cmd == "manual") {
+        cmd == "manual"||
+        cmd.includes(">>")) {
 
         return true;
     }
@@ -34,6 +35,11 @@ function handleCommand(cmd) {
         document.querySelector('#result').innerText = "개발자에게 커피한잔의 여유를....\n우리은행 1002-887-373373 오인규";
     } else if (cmd == "manual") {
         chrome.tabs.create({ "url": "https://gomjellie.github.io/jelly-translator", "selected": true }, function(tab) {});
+    }else if (cmd.includes(">>")) {
+        chrome.storage.local.set({
+            tar_lang: cmd.split(">>")[1].replace(/ /g, "")
+        });
+        translatePopup(cmd.split(">>")[0]);
     }
 }
 
@@ -51,7 +57,7 @@ if (document.querySelector("#src")) {
 
 $(function() {
     $("#translateBtn").click(function(e) {
-        document.querySelector('#result').innerText = "There are too many bugs to stop the service for a while.";
+        document.querySelector('#result').innerText = "There are too many bugs to stop \n'page-translate' service for a while. ʕ•ᴥ•ʔ\n Sorry ";
         // function executeScripts(tabId, injectDetailsArray) {
         //     function createCallback(tabId, injectDetails, innerCallback) {
         //         return function() {
