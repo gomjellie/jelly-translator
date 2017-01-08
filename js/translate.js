@@ -61,43 +61,6 @@ sM = function(a) {
 //TK 값은 vM("string what you want to translate here"); 의 반환값을 가져다 쓰면된다!
 var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-/*
-https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&source=btn&ssel=0&tsel=0&kc=8&tk=500733.125648&q=Note%20that%20encodeURI%20by%20itself%20cannot%20form%20proper%20HTTP%20GET%20and%20POST%20requests%2C%20such%20as%20for%20XMLHTTPRequests%2C%20because%20%22%26%22%2C%20%22%2B%22%2C%20and%20%22%3D%22%20are%20not%20encoded%2C%20which%20are%20treated%20as%20special%20characters%20in%20GET%20and%20POST%20requests.%20encodeURIComponent%2C%20however%2C%20does%20encode%20these%20characters.
-*/
-/*
-client: 't',
-            sl: source language, //auto = auto , en = english
-            tl: target Language, //ko = korean,
-            hl: target Language, //ko = korean
-            dt: ['at', 'bd', 'ex', 'ld', 'md', 'qca', 'rw', 'rm', 'ss', 't'], // 그냥 t로 해두면 되는듯
-            ie: 'UTF-8', // input encoding
-            oe: 'UTF-8', // output encoding
-            otf: 1,
-            ssel: 0,
-            tsel: 0,
-            kc: 7,
-            q: text
-
-sl - source language code (auto for autodetection)
-tl - translation language
-q - source text / word
-ie - input encoding (a guess)
-oe - output encoding (a guess)
-dt - may be included more than once and specifies what to return in the reply.
-Here are some values for dt. If the value is set, the following data will be returned:
-
-t - translation of source text
-at - alternate translations
-rm - transcription / transliteration of source and translated texts
-bd - dictionary, in case source text is one word (you get translations with articles, reverse translations, etc.)
-md - definitions of source text, if it's one word
-ss - synonyms of source text, if it's one word
-ex - examples
-rw - See also list.
-*/
-/*
-var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&pc=1&ssel=0&tsel=0&kc=2&tk=252101.365024&q=The%20Montreal%20Laboratory%20in%20Montreal%2C%20Canada%2C%20was%20established%20by%20the%20National%20Research%20Council%20of%20Canada%20during%20World%20War%20II%20to%20undertake%20nuclear%20research%20in%20collaboration%20with%20the%20United%20Kingdom.%20After%20the%20Fall%20of%20France%2C%20some%20French%20scientists%20escaped%20to%20Britain%20with%20their%20stock%20of%20heavy%20water%2C%20and%20joined%20the%20British%20Tube%20Alloys%20project%20to%20build%20an%20atomic%20bomb.%20In%201942%2C%20it%20was%20decided%20to%20relocate%20the%20work%20to%20Canada."
-*/
 
 function translate(what_to_search) {
     chrome.storage.local.get(function(data) {
@@ -149,18 +112,10 @@ function translatePage() {
 
         // req = new XMLHttpRequest();
         var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
-        console.log(translated_url);
+
         chrome.tabs.update({
             url: translated_url
         });
     });
 
-    console.log(current_url);
-    // tar_lang = "ja";
-    // // req = new XMLHttpRequest();
-    // var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
-
-    // chrome.tabs.update({
-    //     url: translated_url
-    // });
 }
