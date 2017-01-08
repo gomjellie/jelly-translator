@@ -1,12 +1,11 @@
-# <a href="https://gomjellie.github.io/jelly-translator>jelly translator</a>
+# jelly translator
 
-![func>>](docs/img/func>>.gif)
+![func](docs/img/func>>.gif)
 
-#DOWNLOAD on chrome store
+# DOWNLOAD on chrome store
 
-<a href = "https://chrome.google.com/webstore/detail/jelly-translator/lecfocdhckbmhibflggjmaohgnpdadck">
-https://chrome.google.com/webstore/detail/jelly-translator/lecfocdhckbmhibflggjmaohgnpdadck</a>
+https://chrome.google.com/webstore/detail/jelly-translator/lecfocdhckbmhibflggjmaohgnpdadck
 
 #Manual
 
->>goto https://gomjellie.github.io/jelly-translator
+>goto https://gomjellie.github.io/jelly-translator
