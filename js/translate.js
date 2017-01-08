@@ -134,14 +134,19 @@ function translate(what_to_search) {
     req.send();
 }
 
-
 var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url";
 
 function translatePage() {
     var current_url;
+    chrome.storage.local.get(function(data) {
+        if (data)
+            tar_lang = data.tar_lang;
+        else
+            tar_lang = "en";
+    });
     chrome.tabs.query({ 'active': true, 'currentWindow': true }, function(tabs) {
         current_url = tabs[0].url;
-        tar_lang = "ja";
+
         // req = new XMLHttpRequest();
         var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
         console.log(translated_url);
