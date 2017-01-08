@@ -45,7 +45,7 @@ function handleCommand(cmd) {
 
 //팝업 페이지의 #src 입력된 값이 변경 되었을때
 if (document.querySelector("#src")) {
-    $("#src").on('change keydown keypress keyup mousedown click mouseup', function() {
+    $("#src").on('keyup', function() {
         var src = document.querySelector('#src').value;
         if (isCommands(src)) {
             handleCommand(src);
