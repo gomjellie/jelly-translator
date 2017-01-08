@@ -27,7 +27,7 @@ function handleCommand(cmd) {
     } else if (cmd == 'who made this?') {
         chrome.tabs.create({ "url": "https://gomjellie.github.io", "selected": true }, function(tab) {});
     } else if (cmd == "reset") {
-        chrome.storage.local.set({
+        chrome.storage.sync.set({
             tar_lang: 'ko'
         });
         document.querySelector('#result').innerText = "tar_lang: ko";
@@ -36,7 +36,7 @@ function handleCommand(cmd) {
     } else if (cmd == "manual") {
         chrome.tabs.create({ "url": "https://gomjellie.github.io/jelly-translator", "selected": true }, function(tab) {});
     } else if (cmd.includes(">>")) {
-        chrome.storage.local.set({
+        chrome.storage.sync.set({
             tar_lang: cmd.split(">>")[1].replace(/ /g, "")
         });
         translatePopup(cmd.split(">>")[0]);
