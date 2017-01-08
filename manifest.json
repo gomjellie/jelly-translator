@@ -28,7 +28,7 @@
         "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
     ],
     "content_scripts": [{
-        "js": ["js/script.js", "js/translate.js", "js/jquery-3.1.1.min.js", "js/translate_Page_exercise.js"],
+        "js": ["js/jquery-3.1.1.min.js", "js/script.js", "js/translate.js"],
         "matches": ["http://*/*", "https://*/*"]
     }],
     "content_security_policy": "script-src 'self' 'unsafe-eval' script.js; object-src 'self'",

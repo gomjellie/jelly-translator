@@ -60,35 +60,16 @@ sM = function(a) {
     };
 //TK 값은 vM("string what you want to translate here"); 의 반환값을 가져다 쓰면된다!
 var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
-var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-var page_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url" + "&u=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMain_Page";
 
-function translate(what_to_search) {
+var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url" + "&u=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMain_Page";
+
+function translatePage(what_to_search) {
     tar_lang = "ja";
-    req = new XMLHttpRequest();
-    url = page_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(what_to_search);
-    req.open("GET", url, true);
+    // req = new XMLHttpRequest();
+    var translated_url = page_base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(what_to_search);
 
-    req.onreadystatechange = function(aEvt) {
-        if (req.readyState == 4) {
-            //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-            //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-            if (req.status == 200) { //status code 200 means OK
-                //var res_arr = eval(req.responseText);
-                //alert(res_arr[0][0][0]);
-                //var len = res_arr[0].length-1;
-                //ret="";
-                //for(var i=0;i<len;i++){
-                //    ret+=res_arr[0][i][0];
-                //}
-                //document.querySelector('#result').innerText = ret;
-                return req.responseURL;
-            }else {
-                //chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
-                //document.querySelector('#result').innerText = "error occured o_O";
-                return req.responseURL;
-            }
-        }
-    }
-    req.send();
+    chrome.tabs.update({
+    	url: translated_url;
+    });
 }
+

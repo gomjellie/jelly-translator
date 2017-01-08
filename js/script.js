@@ -57,6 +57,7 @@ if (document.querySelector("#src")) {
 
 $(function() {
     $("#translateBtn").click(function(e) {
+        translatePage();
         document.querySelector('#result').innerText = "There are too many bugs to stop \n'page-translate' service for a while. ʕ•ᴥ•ʔ\n Sorry ";
         // function executeScripts(tabId, injectDetailsArray) {
         //     function createCallback(tabId, injectDetails, innerCallback) {

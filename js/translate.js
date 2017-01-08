@@ -117,14 +117,14 @@ function translate(what_to_search) {
             if (req.status == 200) { //status code 200 means OK
                 var res_arr = eval(req.responseText);
                 //alert(res_arr[0][0][0]);
-                var len = res_arr[0].length-1;
-                ret="";
-                for(var i=0;i<len;i++){
-                    ret+=res_arr[0][i][0];
+                var len = res_arr[0].length - 1;
+                ret = "";
+                for (var i = 0; i < len; i++) {
+                    ret += res_arr[0][i][0];
                 }
                 document.querySelector('#result').innerText = ret;
                 return ret;
-            }else {
+            } else {
                 chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
                 document.querySelector('#result').innerText = "error occured o_O";
                 return req.responseURL;
@@ -132,4 +132,30 @@ function translate(what_to_search) {
         }
     }
     req.send();
+}
+
+
+var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url";
+
+function translatePage() {
+    var current_url;
+    chrome.tabs.query({ 'active': true, 'currentWindow': true }, function(tabs) {
+        current_url = tabs[0].url;
+        tar_lang = "ja";
+        // req = new XMLHttpRequest();
+        var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
+        console.log(translated_url);
+        chrome.tabs.update({
+            url: translated_url
+        });
+    });
+
+    console.log(current_url);
+    // tar_lang = "ja";
+    // // req = new XMLHttpRequest();
+    // var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
+
+    // chrome.tabs.update({
+    //     url: translated_url
+    // });
 }
