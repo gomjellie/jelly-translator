@@ -63,11 +63,12 @@ var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
 
 function translate(what_to_search) {
+    var tar_lang = "ko";
     chrome.storage.local.get(function(data) {
         if (data)
             tar_lang = data.tar_lang;
         else
-            tar_lang = "en";
+            tar_lang = "ko";
     });
     req = new XMLHttpRequest();
     url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);

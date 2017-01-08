@@ -8,7 +8,7 @@ function isCommands(cmd) {
         cmd == "who made this?" ||
         cmd == "reset" ||
         cmd == "donate" ||
-        cmd == "manual"||
+        cmd == "manual" ||
         cmd.includes(">>")) {
 
         return true;
@@ -35,7 +35,7 @@ function handleCommand(cmd) {
         document.querySelector('#result').innerText = "개발자에게 커피한잔의 여유를....\n우리은행 1002-887-373373 오인규";
     } else if (cmd == "manual") {
         chrome.tabs.create({ "url": "https://gomjellie.github.io/jelly-translator", "selected": true }, function(tab) {});
-    }else if (cmd.includes(">>")) {
+    } else if (cmd.includes(">>")) {
         chrome.storage.local.set({
             tar_lang: cmd.split(">>")[1].replace(/ /g, "")
         });
@@ -45,7 +45,7 @@ function handleCommand(cmd) {
 
 //팝업 페이지의 #src 입력된 값이 변경 되었을때
 if (document.querySelector("#src")) {
-    document.querySelector('#src').addEventListener('input', function() {
+    $("#src").on('change keydown keypress keyup mousedown click mouseup', function() {
         var src = document.querySelector('#src').value;
         if (isCommands(src)) {
             handleCommand(src);
@@ -53,6 +53,14 @@ if (document.querySelector("#src")) {
             translatePopup(src);
         }
     });
+    // document.querySelector('#src').addEventListener('input', function() {
+    //     var src = document.querySelector('#src').value;
+    //     if (isCommands(src)) {
+    //         handleCommand(src);
+    //     } else {
+    //         translatePopup(src);
+    //     }
+    // });
 }
 
 $(function() {
