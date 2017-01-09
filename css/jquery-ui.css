@@ -590,6 +590,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-dialog {
+    z-index: 9999;
     position: absolute;
     top: 0;
     left: 0;
@@ -598,7 +599,8 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-dialog .ui-dialog-titlebar {
-    padding: .4em 1em;
+    display: none;
+    padding: .1em 1em;
     position: relative;
 }
 
@@ -2058,6 +2060,7 @@ a.ui-button:active,
 /* Overlays */
 
 .ui-widget-overlay {
+    z-index: 0;
     background: #aaaaaa;
     opacity: .3;
     filter: Alpha(Opacity=30);

@@ -25,10 +25,11 @@ $(document).ready(function() {
             //insert dialog
             if (!document.querySelector("#dialog")) {
                 $(function() {
-                    var dialog_html = "<div id='dialog' title='jelly Translator'><p>" + txt + "</p></div>";
+                    var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
                     document.body.innerHTML += dialog_html;
                     $("#dialog").dialog({
                         dialogClass: 'fixed-dialog',
+                        overflow: 'hidden',
                         modal: false,
                         close: function(event, ui) {
                             //$(this).dialog('close');
@@ -71,6 +72,7 @@ $(document).ready(function() {
                         //position: "top right"//[mouseEvent.clientX, mouseEvent.clientY]
                     });
                 });
+
             } else {
                 console.log("dialog already exists");
             }
