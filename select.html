@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+    #console {
+        width: 300px;
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--script src="https://code.jquery.com/jquery-1.12.4.js"></script-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    // $(function() {
+    //     var dialog_html = "<div id='dialog' title='Basic dialog'><p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p></div>";
+    //     document.body.innerHTML += dialog_html;
+    //     $("#dialog").dialog();
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(document).mouseup(function() {
+
+            var txt = '';
+            if (window.getSelection) {
+                txt = window.getSelection();
+            } else if (document.getSelection) {
+                txt = document.getSelection();
+            } else if (document.selection) {
+                txt = document.selection.createRange().text;
+            } else {
+                return;
+            }
+            txt = String(txt); // Type Casting
+            console.log(txt);
+            if (txt != "") {
+                //insert dialog
+                if (!document.querySelector("#dialog")) {
+                    $(function() {
+                        var dialog_html = "<div id='dialog' title='Basic dialog'><p>THIS IS DIALOG</p></div>";
+                        document.body.innerHTML += dialog_html;
+                        $("#dialog").dialog();
+                    });
+                }
+
+                //edit dialog text
+                $("#dialog").text(txt);
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <p>abcdefghijklmnopqrstuvwxyz</p>
+    <p>마우스로 드래그해서 선택한 글 나오기</p>
+    <!-- <div id='dialog' title='Basic dialog'>
+        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+    </div> -->
+</body>
+
+</html>

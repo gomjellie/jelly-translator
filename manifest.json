@@ -6,7 +6,7 @@
     "version": "1.4",
     "background": {
         "persistent": true,
-        "scripts": ["js/jquery-3.1.1.min.js", "js/background.js"]
+        "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/select.js"]
     },
     "browser_action": {
         "default_popup": "popup.html"
@@ -28,7 +28,8 @@
         "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
     ],
     "content_scripts": [{
-        "js": ["js/jquery-3.1.1.min.js", "js/script.js", "js/translate.js"],
+        "css": ["css/jquery-ui.css"],
+        "js": ["js/jquery-3.1.1.min.js", "js/script.js", "js/translate.js", "js/jquery-ui.js", "js/select.js"],
         "matches": ["http://*/*", "https://*/*"]
     }],
     "content_security_policy": "script-src 'self' 'unsafe-eval' script.js; object-src 'self'",

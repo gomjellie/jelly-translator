@@ -204,6 +204,12 @@ var reload = function() {
         });
 };
 
+chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
+    if(request.command === "openPopup"){
+        chrome.tabs.create({ "url": "popup.html"});
+        popup.cancle();
+    }
+});
 /*On install*/
 chrome.runtime.onInstalled.addListener(function(details) {
     console.log('previousVersion', JSON.stringify(details, null, 2));
