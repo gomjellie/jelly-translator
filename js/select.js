@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $(document).mouseup(function(mouseEvent) {
         var txt = '';
+        var button_state = true;
         if (window.getSelection) {
             txt = window.getSelection();
         } else if (document.getSelection) {
@@ -26,24 +27,41 @@ $(document).ready(function() {
                             //$(this).dialog('close');
                             $(this).dialog('destroy').remove();
                         },
-                        // buttons: {
-                        //     "close": function() {
-                        //         //$(this).dialog('close');
-                        //         $(this).dialog("destroy").remove();
-                        //     }
-                        // },
+                        buttons: {
+                            "color": function() {
+                                if (button_state) {
+                                    $(this).animate({
+                                        backgroundColor: "#000",
+                                        color: "#fff",
+                                        height: 500
+                                    }, 1000);
+                                } else {
+                                    $(this).animate({
+                                        backgroundColor: "#fff",
+                                        color: "#000",
+                                        height: 200
+                                    }, 500);
+                                }
+                                button_state = !button_state;
+                                //$(this).dialog('close');
+                                //$(this).dialog("destroy").remove();
+                            },
+                            "translate": function() {
+                                alert($(this).text());
+                            }
+                        },
                         position: {
                             my: "left",
                             at: "right top",
                             //of: $(mouseEvent)
                         },
                         show: {
-                            effect: "blind",
-                            duration: 1000
+                            effect: "Size",
+                            duration: 500
                         },
                         hide: {
-                            effect: "blind",
-                            duration: 1000
+                            effect: "Size",
+                            duration: 500
                         }
                         //position: "top right"//[mouseEvent.clientX, mouseEvent.clientY]
                     });
@@ -59,8 +77,8 @@ $(document).ready(function() {
 
 
         // chrome.extension.sendMessage(
-        // 	{command: "openPopup"},
-        // 	function(response) {});
+        //  {command: "openPopup"},
+        //  function(response) {});
 
     });
 });
