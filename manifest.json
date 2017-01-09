@@ -48,7 +48,7 @@
         "_execute_browser_action": {
             "suggested_key": {
                 "windows": "Ctrl+D",
-                "mac": "Command+D",
+                "mac": "Command+Shift+Z",
                 "chromeos": "Ctrl+D",
                 "linux": "Ctrl+D"
             }

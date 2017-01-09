@@ -76,9 +76,14 @@ $(document).ready(function() {
             }
 
             //edit dialog text
-            $("#dialog").html(htmlForTextWithEmbeddedNewlines(txt));
-            //$("#dialog").text(txt.replace(/\n/g, '<br/>'));
+            //$("#dialog").html(htmlForTextWithEmbeddedNewlines(txt));
+            $("#dialog").html(txt.replace(/\n/g, '<br/>'));
+            console.log("transformed text :  "+ $("#dialog").text());
             //$("#dialog").text(txt);
+        }else {
+            $("#dialog").each(function(){
+                $(this).dialog('destroy').remove();
+            });
         }
 
 
