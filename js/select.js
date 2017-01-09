@@ -17,29 +17,39 @@ $(document).ready(function() {
             //insert dialog
             if (!document.querySelector("#dialog")) {
                 $(function() {
-                    var dialog_html = "<div id='dialog' title='jelly Translator'><p>THIS IS DIALOG</p></div>";
+                    var dialog_html = "<div id='dialog' title='jelly Translator'><p>" + txt + "</p></div>";
                     document.body.innerHTML += dialog_html;
                     $("#dialog").dialog({
                         dialogClass: 'fixed-dialog',
                         modal: false,
+                        close: function(event, ui) {
+                            //$(this).dialog('close');
+                            $(this).dialog('destroy').remove();
+                        },
                         buttons: {
-                            "x": function() {
-                                $(this).dialog("close");
+                            "close": function() {
+                                //$(this).dialog('close');
+                                $(this).dialog("destroy").remove();
                             }
+                        },
+                        position: {
+                            my: "left",
+                            at: "right",
+                            of: $(mouseEvent)
                         },
                         show: {
                             effect: "blind",
                             duration: 1000
                         },
                         hide: {
-                            effect: "explode",
+                            effect: "blind",
                             duration: 1000
-                        },
-                        position: [mouseEvent.clientX, mouseEvent.clientY]
+                        }
+                        //position: "top right"//[mouseEvent.clientX, mouseEvent.clientY]
                     });
                 });
             } else {
-                console.log("dialog is already exists");
+                console.log("dialog already exists");
             }
 
             //edit dialog text
@@ -54,36 +64,3 @@ $(document).ready(function() {
 
     });
 });
-
-// $(document).ready(function() {
-//     $(document).mouseup(function() {
-
-//         var txt = '';
-//         if (window.getSelection) {
-//             txt = window.getSelection();
-//         } else if (document.getSelection) {
-//             txt = document.getSelection();
-//         } else if (document.selection) {
-//             txt = document.selection.createRange().text;
-//         } else {
-//             return;
-//         }
-//         txt = String(txt); // Type Casting
-//         console.log(txt);
-//         if (txt != "") {
-//             //insert dialog
-//             if (!document.querySelector("#dialog")) {
-//                 $(function() {
-//                     var dialog_html = "<div id='dialog' title='Basic dialog'><p>THIS IS DIALOG</p></div>";
-//                     document.body.innerHTML += dialog_html;
-//                     $("#dialog").dialog();
-//                 });
-//             } else {
-//                 console.log("dialog is already exists");
-//             }
-
-//             //edit dialog text
-//             $("#dialog").text(txt);
-//         }
-//     });
-// });
