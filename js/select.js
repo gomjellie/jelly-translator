@@ -26,16 +26,16 @@ $(document).ready(function() {
                             //$(this).dialog('close');
                             $(this).dialog('destroy').remove();
                         },
-                        buttons: {
-                            "close": function() {
-                                //$(this).dialog('close');
-                                $(this).dialog("destroy").remove();
-                            }
-                        },
+                        // buttons: {
+                        //     "close": function() {
+                        //         //$(this).dialog('close');
+                        //         $(this).dialog("destroy").remove();
+                        //     }
+                        // },
                         position: {
                             my: "left",
-                            at: "right",
-                            of: $(mouseEvent)
+                            at: "right top",
+                            //of: $(mouseEvent)
                         },
                         show: {
                             effect: "blind",
