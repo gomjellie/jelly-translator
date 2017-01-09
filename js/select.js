@@ -32,15 +32,13 @@ $(document).ready(function() {
                                 if (button_state) {
                                     $(this).animate({
                                         backgroundColor: "#000",
-                                        color: "#fff",
-                                        height: 500
-                                    }, 1000);
+                                        color: "#fff"
+                                    }, 800);
                                 } else {
                                     $(this).animate({
                                         backgroundColor: "#fff",
-                                        color: "#000",
-                                        height: 200
-                                    }, 500);
+                                        color: "#000"
+                                    }, 800);
                                 }
                                 button_state = !button_state;
                                 //$(this).dialog('close');

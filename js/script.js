@@ -1,3 +1,73 @@
+var languageDict = {
+    'afrikaans': 'af',
+    'albanian': 'sq',
+    'arabic': 'ar',
+    'azerbaijani': 'az',
+    'basque': 'eu',
+    'bengali': 'bn',
+    'belarusian': 'be',
+    'bulgarian': 'bg',
+    'catalan': 'ca',
+    'chinese' : 'zh-CN',
+    'chinese simplified': 'zh-CN',
+    'chinese traditional': 'zh-TW',
+    'croatian': 'hr',
+    'czech': 'cs',
+    'danish': 'da',
+    'dutch': 'nl',
+    'english': 'en',
+    'esperanto': 'eo',
+    'estonian': 'et',
+    'filipino': 'tl',
+    'finnish': 'fi',
+    'french': 'fr',
+    'galician': 'gl',
+    'georgian': 'ka',
+    'german': 'de',
+    'greek': 'el',
+    'gujarati': 'gu',
+    'haitian creole': 'ht',
+    'hebrew': 'iw',
+    'hindi': 'hi',
+    'hungarian': 'hu',
+    'icelandic': 'is',
+    'indonesian': 'id',
+    'language name': 'Language Code',
+    'irish': 'ga',
+    'italian': 'it',
+    'japanese': 'ja',
+    'kannada': 'kn',
+    'korean': 'ko',
+    'latin': 'la',
+    'latvian': 'lv',
+    'lithuanian': 'lt',
+    'macedonian': 'mk',
+    'malay': 'ms',
+    'maltese': 'mt',
+    'norwegian': 'no',
+    'persian': 'fa',
+    'polish': 'pl',
+    'portuguese': 'pt',
+    'romanian': 'ro',
+    'russian': 'ru',
+    'serbian': 'sr',
+    'slovak': 'sk',
+    'slovenian': 'sl',
+    'spanish': 'es',
+    'swahili': 'sw',
+    'swedish': 'sv',
+    'tamil': 'ta',
+    'telugu': 'te',
+    'thai': 'th',
+    'turkish': 'tr',
+    'ukrainian': 'uk',
+    'urdu': 'ur',
+    'vietnamese': 'vi',
+    'welsh': 'cy',
+    'yiddish': 'yi'
+};
+
+
 function translatePopup(src) {
     translate(src);
 }
@@ -36,10 +106,15 @@ function handleCommand(cmd) {
     } else if (cmd == "manual") {
         chrome.tabs.create({ "url": "https://gomjellie.github.io/jelly-translator", "selected": true }, function(tab) {});
     } else if (cmd.includes(">>")) {
-        chrome.storage.sync.set({
-            tar_lang: cmd.split(">>")[1].replace(/ /g, "")
-        });
-        translatePopup(cmd.split(">>")[0]);
+        var change_tar_lang = cmd.split(">>")[1].replace(/ /g, "").toLowerCase();
+        if (change_tar_lang in languageDict) {
+            chrome.storage.sync.set({
+                tar_lang: languageDict[change_tar_lang]
+            });
+            translatePopup(cmd.split(">>")[0]);
+        }else {
+            document.querySelector('#result').innerText = change_tar_lang + "is not in languageDict";
+        }
     }
 }
 
@@ -53,14 +128,6 @@ if (document.querySelector("#src")) {
             translatePopup(src);
         }
     });
-    // document.querySelector('#src').addEventListener('input', function() {
-    //     var src = document.querySelector('#src').value;
-    //     if (isCommands(src)) {
-    //         handleCommand(src);
-    //     } else {
-    //         translatePopup(src);
-    //     }
-    // });
 }
 
 $(function() {
