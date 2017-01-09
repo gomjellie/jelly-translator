@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $(document).mouseup(function() {
+    $(document).mouseup(function(mouseEvent) {
         var txt = '';
         if (window.getSelection) {
             txt = window.getSelection();
@@ -19,7 +19,24 @@ $(document).ready(function() {
                 $(function() {
                     var dialog_html = "<div id='dialog' title='jelly Translator'><p>THIS IS DIALOG</p></div>";
                     document.body.innerHTML += dialog_html;
-                    $("#dialog").dialog();
+                    $("#dialog").dialog({
+                        dialogClass: 'fixed-dialog',
+                        modal: false,
+                        buttons: {
+                            "x": function() {
+                                $(this).dialog("close");
+                            }
+                        },
+                        show: {
+                            effect: "blind",
+                            duration: 1000
+                        },
+                        hide: {
+                            effect: "explode",
+                            duration: 1000
+                        },
+                        position: [mouseEvent.clientX, mouseEvent.clientY]
+                    });
                 });
             } else {
                 console.log("dialog is already exists");
