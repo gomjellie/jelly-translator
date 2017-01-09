@@ -121,3 +121,40 @@ function translatePage() {
     });
 
 }
+
+function selectionTranslate(selected_string, dialog) {
+    chrome.storage.sync.get(function(data) {
+        var tar_lang = "ko";
+        if (data)
+            tar_lang = data.tar_lang;
+        else
+            tar_lang = "ko";
+        req = new XMLHttpRequest();
+        url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(selected_string) + "&q=" + encodeURIComponent(selected_string);
+        req.open("GET", url, true);
+
+        req.onreadystatechange = function(aEvt) {
+            if (req.readyState == 4) {
+                //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
+                //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
+                if (req.status == 200) { //status code 200 means OK
+                    var res_arr = eval(req.responseText);
+                    //alert(res_arr[0][0][0]);
+                    var len = res_arr[0].length - 1;
+                    ret = "";
+                    for (var i = 0; i < len; i++) {
+                        ret += res_arr[0][i][0];
+                    }
+                    console.log(ret);
+                    dialog.html(ret.replace(/\n/g, '<br/>'));
+                    return ret;
+                } else {
+                    chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
+                    document.querySelector('#result').innerText = "error occured o_O";
+                    return req.responseURL;
+                }
+            }
+        }
+        req.send();
+    });
+}

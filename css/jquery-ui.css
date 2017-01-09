@@ -634,10 +634,11 @@ button.ui-button::-moz-focus-inner {
 
 .ui-dialog .ui-dialog-buttonpane {
     text-align: left;
-    border-width: 1px 0 0 0;
+    font-size: 0.6em;
+    border-width: 00 0 0;
     background-image: none;
-    margin-top: .5em;
-    padding: .3em 1em .5em .4em;
+    margin-top: .0em;
+    padding: 0px;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -2062,8 +2063,8 @@ a.ui-button:active,
 .ui-widget-overlay {
     z-index: 0;
     background: #aaaaaa;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
+    opacity: .5 !important;
+    filter: Alpha(Opacity=50) !important;
     /* support: IE8 */
 }
 

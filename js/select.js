@@ -1,3 +1,5 @@
+var click_in_vane_count = 0;
+
 $(document).ready(function() {
     $(document).mouseup(function(mouseEvent) {
         var txt = '';
@@ -19,8 +21,8 @@ $(document).ready(function() {
         } catch (exception) {
             txt = String(txt);
         }
+        //console.log(txt);
         if (txt != "") {
-            console.log(txt);
 
             //insert dialog
             if (!document.querySelector("#dialog")) {
@@ -28,6 +30,7 @@ $(document).ready(function() {
                     var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
                     document.body.innerHTML += dialog_html;
                     $("#dialog").dialog({
+                        draggable: true,
                         dialogClass: 'fixed-dialog',
                         overflow: 'hidden',
                         modal: false,
@@ -79,13 +82,20 @@ $(document).ready(function() {
 
             //edit dialog text
             //$("#dialog").html(htmlForTextWithEmbeddedNewlines(txt));
-            $("#dialog").html(txt.replace(/\n/g, '<br/>'));
-            console.log("transformed text :  "+ $("#dialog").text());
+            selectionTranslate(txt, $("#dialog"));
+            //$("#dialog").html(txt.replace(/\n/g, '<br/>'));
+            //console.log("transformed text :  " + $("#dialog").text());
+
+
             //$("#dialog").text(txt);
-        }else {
-            $("#dialog").each(function(){
-                $(this).dialog('destroy').remove();
-            });
+        } else if (txt == "") {
+            click_in_vane_count++;
+            if (click_in_vane_count == 3) {
+                $("#dialog").each(function() {
+                    $(this).dialog('destroy').remove();
+                });
+                click_in_vane_count = 0;
+            }
         }
 
 
@@ -108,7 +118,7 @@ function htmlForTextWithEmbeddedNewlines(text) {
     // You don't need jQuery but then you need to struggle with browser
     // differences in innerText/textContent yourself
     var tmpDiv = jQuery(document.createElement('div'));
-    for (var i = 0 ; i < lines.length ; i++) {
+    for (var i = 0; i < lines.length; i++) {
         htmls.push(tmpDiv.text(lines[i]).html());
     }
     return htmls.join("<br>");
