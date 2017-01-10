@@ -2,7 +2,17 @@ $(document).ready(function() {
     $('select').niceSelect();
 });
 
+jQuery(document).ready(function ($) {
+    $('.toggleswitch').toggleSwitch();
+});
 
+$("#saveBtn").click(function(){
+    alert("saveBtn clicked");
+});
+
+$("#resetBtn").click(function(){
+    alert("resetBtn clicked");
+});
 
 $("#target").submit(function(event) {
     var lang_selected = $("input:first").val();

@@ -205,8 +205,8 @@ var reload = function() {
 };
 
 chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
-    if(request.command === "openPopup"){
-        chrome.tabs.create({ "url": "popup.html"});
+    if(request.command === "openOption"){
+        chrome.tabs.create({ "url": "options.html"});
         popup.cancle();
     }
 });

@@ -1,4 +1,7 @@
 var click_in_vane_count = 0;
+var Dismiss4aWhile = false;
+var dialog_html = "<div id='dialog'><p>" + "</p></div>";
+document.body.innerHTML += dialog_html;
 
 $(document).ready(function() {
     $(document).mouseup(function(mouseEvent) {
@@ -23,12 +26,13 @@ $(document).ready(function() {
         }
         //console.log(txt);
         if (txt != "") {
-
             //insert dialog
-            if (!document.querySelector("#dialog")) {
+            if (Dismiss4aWhile == true)
+                return;
+            if (document.querySelector("#dialog")) {
                 $(function() {
-                    var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
-                    document.body.innerHTML += dialog_html;
+                    // var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
+                    // document.body.innerHTML += dialog_html;
                     $("#dialog").dialog({
                         autoOpen: true,
                         draggable: true,
@@ -39,53 +43,21 @@ $(document).ready(function() {
                             //$(this).dialog('close');
                             $(this).dialog('destroy').remove();
                         },
-                        buttons: [
-                        {
-                            text: 'color',
-                            open: function(){$(this).addClass('color')},
-                            click: function(){
-                                if (button_state) {
-                                    $(this).animate({
-                                        backgroundColor: "#000",
-                                        color: "#fff"
-                                    }, 800);
-                                } else {
-                                    $(this).animate({
-                                        backgroundColor: "#fff",
-                                        color: "#000"
-                                    }, 800);
-                                }
-                                button_state = !button_state;
+                        buttons: [{
+                            text: 'option',
+                            open: function() { $(this).addClass('color') },
+                            click: function() {
+                                chrome.extension.sendMessage({ command: "openOption" },
+                                    function(response) {});
                             }
-                        },
-                        {
-                            text: 'Cancel',
-                            open: function(){$(this).addClass('cancelcls')},
-                            click: function(){
+                        }, {
+                            text: 'Dismiss4aWhile',
+                            open: function() { $(this).addClass('cancelcls') },
+                            click: function() {
+                                Dismiss4aWhile = true;
                                 $(this).dialog('destroy').remove();
                             }
-                        }
-                            // "color": function() {
-                            //     if (button_state) {
-                            //         $(this).animate({
-                            //             backgroundColor: "#000",
-                            //             color: "#fff"
-                            //         }, 800);
-                            //     } else {
-                            //         $(this).animate({
-                            //             backgroundColor: "#fff",
-                            //             color: "#000"
-                            //         }, 800);
-                            //     }
-                            //     button_state = !button_state;
-                            //     //$(this).dialog('close');
-                            //     //$(this).dialog("destroy").remove();
-                            // },
-                            // "translate": function() {
-                            //     alert($(this).text());
-                            //     $(this).addClass('cancelcls');
-                            // }
-                        ],
+                        }],
                         position: {
                             my: "left",
                             at: "right top",
@@ -102,9 +74,8 @@ $(document).ready(function() {
                         //position: "top right"//[mouseEvent.clientX, mouseEvent.clientY]
                     });
                 });
-
             } else {
-                console.log("dialog already exists");
+                console.log("there's no dialog");
             }
 
             //edit dialog text
@@ -122,10 +93,11 @@ $(document).ready(function() {
                     $(this).dialog('destroy').remove();
                 });
                 click_in_vane_count = 0;
+                var dialog_html = "<div id='dialog'><p>" + "</p></div>";
+                document.body.innerHTML += dialog_html;
             }
+
         }
-
-
 
         // chrome.extension.sendMessage(
         //  {command: "openPopup"},

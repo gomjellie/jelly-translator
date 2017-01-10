@@ -595,13 +595,11 @@ button.ui-button::-moz-focus-inner {
     top: 0;
     left: 0;
     padding: .2em;
-    border: 1px;
     outline: 0;
 }
 
 .ui-dialog .ui-dialog-titlebar {
-    /*display: none;*/
-    border: 1px;
+    display: none;
     padding: .1em 1em;
     position: relative;
 }
@@ -630,9 +628,11 @@ button.ui-button::-moz-focus-inner {
     position: relative;
     border: 0;
     padding: .5em 1em;
+    background: none;
     font-family: 'roboto', "Helvetica-Light", sans-serif;
+    background: none;
     font-size: 0.9rem;
-    background-color: #FDF8E4;
+    background-color: #FFFFFF;
     color: #454545;
     /*background: none;*/
     overflow: auto;
@@ -640,12 +640,11 @@ button.ui-button::-moz-focus-inner {
 
 .ui-dialog .ui-dialog-buttonpane {
     text-align: left;
-    /*font-size: 0.6em;*/
-    border-width: 1px 0 0 0;
+    font-size: 0.6em;
+    border-width: 00 0 0;
     background-image: none;
-    margin-top: .5em;
-    /*padding: .3em 1em .5em .5em;*/
-    background-color: #E3F1CF;
+    margin-top: .0em;
+    padding: 0px;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -655,15 +654,7 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog .ui-dialog-buttonpane button {
     margin: .5em .4em .5em 0;
     cursor: pointer;
-    color: #FFFFFF;
-    background: #90C93E;
 }
-
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .cancelcls
-{
-    background: #F86379;
-}
-
 
 .ui-dialog .ui-resizable-n {
     height: 2px;
@@ -2087,3 +2078,5 @@ a.ui-button:active,
     -webkit-box-shadow: 0px 0px 5px #666666;
     box-shadow: 0px 0px 5px #666666;
 }
+
+optionDismiss4aWhile
