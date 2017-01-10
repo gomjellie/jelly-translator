@@ -30,6 +30,7 @@ $(document).ready(function() {
                     var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
                     document.body.innerHTML += dialog_html;
                     $("#dialog").dialog({
+                        autoOpen: true,
                         draggable: true,
                         dialogClass: 'fixed-dialog',
                         overflow: 'hidden',
@@ -38,8 +39,11 @@ $(document).ready(function() {
                             //$(this).dialog('close');
                             $(this).dialog('destroy').remove();
                         },
-                        buttons: {
-                            "color": function() {
+                        buttons: [
+                        {
+                            text: 'color',
+                            open: function(){$(this).addClass('color')},
+                            click: function(){
                                 if (button_state) {
                                     $(this).animate({
                                         backgroundColor: "#000",
@@ -52,13 +56,36 @@ $(document).ready(function() {
                                     }, 800);
                                 }
                                 button_state = !button_state;
-                                //$(this).dialog('close');
-                                //$(this).dialog("destroy").remove();
-                            },
-                            "translate": function() {
-                                alert($(this).text());
                             }
                         },
+                        {
+                            text: 'Cancel',
+                            open: function(){$(this).addClass('cancelcls')},
+                            click: function(){
+                                $(this).dialog('destroy').remove();
+                            }
+                        }
+                            // "color": function() {
+                            //     if (button_state) {
+                            //         $(this).animate({
+                            //             backgroundColor: "#000",
+                            //             color: "#fff"
+                            //         }, 800);
+                            //     } else {
+                            //         $(this).animate({
+                            //             backgroundColor: "#fff",
+                            //             color: "#000"
+                            //         }, 800);
+                            //     }
+                            //     button_state = !button_state;
+                            //     //$(this).dialog('close');
+                            //     //$(this).dialog("destroy").remove();
+                            // },
+                            // "translate": function() {
+                            //     alert($(this).text());
+                            //     $(this).addClass('cancelcls');
+                            // }
+                        ],
                         position: {
                             my: "left",
                             at: "right top",
