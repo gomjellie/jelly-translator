@@ -38,6 +38,7 @@ $(document).ready(function() {
                         draggable: true,
                         dialogClass: 'fixed-dialog',
                         overflow: 'hidden',
+                        width: '27em',
                         modal: false,
                         close: function(event, ui) {
                             //$(this).dialog('close');
@@ -108,6 +109,7 @@ $(document).ready(function() {
 
 function htmlForTextWithEmbeddedNewlines(text) {
     var htmls = [];
+    text = text.replace(/\./g, ".\n");
     var lines = text.split(/\n/);
     // The temporary <div/> is to perform HTML entity encoding reliably.
     //
