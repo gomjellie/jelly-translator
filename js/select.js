@@ -1,10 +1,11 @@
 var click_in_vane_count = 0;
 var Dismiss4aWhile = false;
-var dialog_html = "<div id='dialog'><p>" + "</p></div>";
-document.body.innerHTML += dialog_html;
+var dialog_html = "<div id='translate_dialog'><p></p></div>";
+// document.body.innerHTML += dialog_html;
+$("body").append(dialog_html);
 
 $(document).ready(function() {
-    $(document).mouseup(function(mouseEvent) {
+    document.addEventListener('mouseup',function(mouseEvent) {
         var txt = '';
         var button_state = true;
         if (window.getSelection) {
@@ -29,11 +30,11 @@ $(document).ready(function() {
             //insert dialog
             if (Dismiss4aWhile == true)
                 return;
-            if (document.querySelector("#dialog")) {
+            if (document.querySelector("#translate_dialog")) {
                 $(function() {
                     // var dialog_html = "<div id='dialog'><p>" + txt + "</p></div>";
                     // document.body.innerHTML += dialog_html;
-                    $("#dialog").dialog({
+                    $("#translate_dialog").dialog({
                         autoOpen: true,
                         draggable: true,
                         dialogClass: 'fixed-dialog',
@@ -42,7 +43,10 @@ $(document).ready(function() {
                         modal: false,
                         close: function(event, ui) {
                             //$(this).dialog('close');
-                            $(this).dialog('destroy').remove();
+
+                            ("#translate_dialog").each(function(){
+                                $(this).dialog('destroy').remove();
+                            });
                         },
                         buttons: [{
                             text: 'option',
@@ -81,7 +85,7 @@ $(document).ready(function() {
 
             //edit dialog text
             //$("#dialog").html(htmlForTextWithEmbeddedNewlines(txt));
-            selectionTranslate(txt, $("#dialog"));
+            selectionTranslate(txt, $("#translate_dialog"));
             //$("#dialog").html(txt.replace(/\n/g, '<br/>'));
             //console.log("transformed text :  " + $("#dialog").text());
 
@@ -90,12 +94,15 @@ $(document).ready(function() {
         } else if (txt == "") {
             click_in_vane_count++;
             if (click_in_vane_count == 3) {
-                $("#dialog").each(function() {
-                    $(this).dialog('destroy').remove();
+                $("#translate_dialog").each(function() {
+                    if($(this).dialog()){
+                        $(this).dialog('destroy').remove();
+                    }
                 });
                 click_in_vane_count = 0;
-                var dialog_html = "<div id='dialog'><p>" + "</p></div>";
-                document.body.innerHTML += dialog_html;
+                var dialog_html = "<div id='translate_dialog'><p>" + "</p></div>";
+                $("body").append(dialog_html);
+                //document.body.innerHTML += dialog_html;
             }
 
         }
