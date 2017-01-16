@@ -72,4 +72,3 @@ function translatePage(what_to_search) {
     	url: translated_url;
     });
 }
-

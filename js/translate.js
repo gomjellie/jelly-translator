@@ -88,7 +88,10 @@ function translate(what_to_search) {
                     document.querySelector('#result').innerText = ret;
                     return ret;
                 } else {
-                    chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
+                    chrome.tabs.create({
+                        "url": req.responseURL,
+                        "selected": true
+                    }, function(tab) {});
                     document.querySelector('#result').innerText = "error occured o_O";
                     return req.responseURL;
                 }
@@ -109,7 +112,10 @@ function translatePage() {
         else
             tar_lang = "en";
     });
-    chrome.tabs.query({ 'active': true, 'currentWindow': true }, function(tabs) {
+    chrome.tabs.query({
+        'active': true,
+        'currentWindow': true
+    }, function(tabs) {
         current_url = tabs[0].url;
 
         // req = new XMLHttpRequest();
@@ -145,11 +151,19 @@ function selectionTranslate(selected_string, dialog) {
                     for (var i = 0; i < len; i++) {
                         ret += res_arr[0][i][0];
                     }
-                    console.log(ret);
-                    dialog.html(ret.replace(/\n/g, '<br/>'));
-                    return ret;
+
+                    if (ret.replace(/\n/g, "") == selected_string.replace(/\n/g, "")) {
+                        dialog.dialog('destroy').remove();
+                        var dialog_html = "<div id='translate_dialog'><p></p></div>";
+                        $("body").append(dialog_html);
+                    } else {
+                        dialog.html(ret.replace(/\n/g, '<br/>'));
+                    }
                 } else {
-                    chrome.tabs.create({ "url": req.responseURL, "selected": true }, function(tab) {});
+                    chrome.tabs.create({
+                        "url": req.responseURL,
+                        "selected": true
+                    }, function(tab) {});
                     document.querySelector('#result').innerText = "error occured o_O";
                     return req.responseURL;
                 }

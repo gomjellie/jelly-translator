@@ -32,7 +32,6 @@ var languageDict = {
     'hungarian': 'hu',
     'icelandic': 'is',
     'indonesian': 'id',
-    'language name': 'Language Code',
     'irish': 'ga',
     'italian': 'it',
     'japanese': 'ja',
