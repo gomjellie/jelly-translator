@@ -67,7 +67,7 @@
       var $options = $select.find('option');
       var $selected = $select.find('option:selected');
 
-      $dropdown.find('.current').html($selected.data('display') || $selected.text());
+      $dropdown.find('.current').html($selected.data('display') || $selected.text());
 
       $options.each(function(i) {
         var $option = $(this);

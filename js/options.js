@@ -1,9 +1,40 @@
-$(document).ready(function() {
-    $('select').niceSelect();
+//$('select').niceSelect();
+
+jQuery(document).ready(function ($){
+    chrome.storage.sync.get(function(data) {
+        var isSelectionChecked = false;
+        var isPageChecked = false;
+        if (data){
+            isSelectionChecked = data.selection_translate;
+            isPageChecked = data.page_translate;
+        }
+        $('#cmn-toggle-selection-translate').prop('checked', isSelectionChecked);
+        $('#cmn-toggle-page-translate').prop('checked', isPageChecked);
+    });
 });
 
-jQuery(document).ready(function ($) {
-    $('.toggleswitch').toggleSwitch();
+$("#cmn-toggle-selection-translate").change(function(){
+    if($(this).is(':checked')){
+        chrome.storage.sync.set({
+            selection_translate: true
+        });
+    }else{
+        chrome.storage.sync.set({
+            selection_translate: false
+        });
+    }
+});
+
+$("#cmn-toggle-page-translate").change(function(){
+    if($(this).is(':checked')){
+        chrome.storage.sync.set({
+            page_translate: true
+        });
+    }else{
+        chrome.storage.sync.set({
+            page_translate: false
+        });
+    }
 });
 
 $("#saveBtn").click(function(){

@@ -19,7 +19,7 @@
         outline: none;
     }
 
-    #resetBtn{
+    #resetBtn {
         width: 15em;
         font-family: "Helvetica-Light", "roboto";
         font-size: 17px;
@@ -100,7 +100,7 @@
     }
 
     .fender img {
-        max-width: 90%;
+        max-width: 85%;
         height: auto;
     }
 
@@ -123,19 +123,27 @@
         color: green;
     }
     </style>
-    <script src="js/jQuery.nice-select.js"></script>
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jQuery.nice-select.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/toggles.js"></script>
+    <link rel="stylesheet" href="css/toggles-full.css">
     <link rel="stylesheet" href="css/nice-select.css">
     <link rel="stylesheet" href="css/semantic-2.1.7.css">
+    <style>
+    .nice-select {
+        float: inherit;
+    }
+    </style>
 </head>
 
 <body>
     <div class="ui vertical masthead center aligned random segment">
         <div id="ui container">
             <div class="ui options">
-                <div id="option_picker" class="option_picker" aligned="center">
+                <div id="option_picker" class="ui option_picker" align="center">
                     <form id="target" action="#" autocomplete="off">
-                        <select id="sel">
+                        <select id="sel" class="nice-select" align="center">
                             <option value="af">Afrikaans</option>
                             <option value="sq">Albanian</option>
                             <option value="ar">Arabic</option>
@@ -204,10 +212,31 @@
                         </select>
                         <!--input id="src" class="src" type="text" placeholder="Translation Target Language Goes HERE" autofocus list="languages"></input-->
                     </form>
-                    <h1 class="fender"><img src='src/panda_captured.png'><br></h1>
                 </div>
             </div>
-            <input type='checkbox' name='opt1' id='opt1' value='1' class='toggleswitch' checked='checked' />
+            <h1 class="fender"><img src='src/panda_captured.png'><br></h1>
+            <div class="ui settings">
+                <div class="row">
+                    <div class="question">
+                        드래그한 부분 번역
+                    </div>
+                    <div class="switch">
+                        <input id="cmn-toggle-selection-translate" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                        <label for="cmn-toggle-selection-translate"></label>
+                    </div>
+                </div>
+                <!-- /row -->
+                <div class="row">
+                    <div class="question">
+                        Page Translate
+                    </div>
+                    <div class="switch">
+                        <input id="cmn-toggle-page-translate" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+                        <label for="cmn-toggle-page-translate" data-on="stable" data-off="Beta"></label>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
             <ul class="ui buttons">
                 <div id="button">
                     <input type="button" id="saveBtn" class="button" value="Save Settings">
