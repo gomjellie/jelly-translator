@@ -4,7 +4,6 @@ var dialog_html = "<div id='translate_dialog'><p></p></div>";
 $("body").append(dialog_html);
 
 $(document).ready(function() {
-    var tmp = 1;
     chrome.storage.sync.get(function(data) {
         if (!data.selection_translate) {
             return;
@@ -15,7 +14,7 @@ $(document).ready(function() {
 
 var show_dialog = function(mouseEvent) {
     chrome.storage.sync.get(function(data) { // function which get selected text
-        if (!data.selection_translate) {
+        if (!data.selection_translate) { // if option is off halt function
             return;
         }
         var txt = '';
@@ -34,16 +33,16 @@ var show_dialog = function(mouseEvent) {
         } catch (exception) {
             txt = String(txt);
         }
-        if (txt != "") {
+        if (txt !== "") {
             //insert dialog
             if (Dismiss4aWhile == true)
                 return;
             if (document.querySelector("#translate_dialog")) {
                 $(make_dialog);
             }
-            
+
             selectionTranslate(txt, $("#translate_dialog"));
-        } else if (txt == "") {
+        } else if (txt === "") {
             click_in_vane_count++;
             if (click_in_vane_count == 3) { // when user clicks non-dialog area 3 times
                 $("#translate_dialog").each(function() { // destroy showing dialog
