@@ -61,7 +61,7 @@ sM = function(a) {
 //var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-var form = "<div style='background-color: #E5E5EA; color: #000000; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
+var form = "<div style='background-color: #E5E5EA; width: inherit; color: #333333; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
 var req = {};
 var memory = {};
 chrome.storage.local.get(function(data) {
@@ -89,7 +89,8 @@ function translate_for_page(origin_text, section) {
 					ret += res_arr[0][i][0];
 				}
 
-				memory[origin_text] = ret;
+				//memory[origin_text] = ret;
+        localStorage.setItem(origin_text, ret);
 				section.append(form + ret + "</div>");
 				//section.html(origin_text.replace(origin_text, ret));
 				//section.context.childNodes[0].textContent = ret;//testing
@@ -109,12 +110,12 @@ function translate_for_page(origin_text, section) {
 	}
 
   //console.log(memory[origin_text]);
-	if (typeof memory[origin_text] === 'undefined') {
+	if (localStorage.getItem(origin_text) === null) {
 		req[origin_text].send();
 	} else { // memorized
 		console.log(origin_text + "  cut-off");
     //alert("cut-off");
-		section.append(form + memory[origin_text] + "</div>");
+		section.append(form + localStorage.getItem(origin_text) + "</div>");
 	}
 }
 
@@ -136,9 +137,10 @@ function translatePage_unique() {
 		try {
 			translate_for_page(text.trim(), $(this));
 		} catch (err) {
-      chrome.tabs.update({
-  			url: err
-  		});
+      window.open(err, "_self");
+      // chrome.tabs.update({
+  		// 	url: err
+  		// });
 			//chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
 			return false;
 		}

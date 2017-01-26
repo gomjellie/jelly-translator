@@ -158,24 +158,21 @@ function selectionTranslate(selected_string, dialog) {
 						var dialog_html = "<div id='translate_dialog'><p></p></div>";
 						$("body").append(dialog_html);
 					} else {
-						memory[selected_string] = ret;
+						//memory[selected_string] = ret;
+						localStorage.setItem(selected_string, ret);
 						dialog.html(beautify_result_html(ret));
 					}
 				} else {
-					chrome.tabs.create({
-						"url": req.responseURL,
-						"selected": true
-					}, function(tab) {});
-					document.querySelector('#result').innerText = "error occured o_O";
+					window.open(req.responseURL, "_self");
 					return req.responseURL;
 				}
 			}
 		}
-		if (typeof memory[selected_string] === 'undefined'){
+		if (localStorage.getItem(selected_string) === null){
 			req.send();
 		}else {
-			//console.log("memorized");
-			dialog.html(beautify_result_html(memory[selected_string]));
+			console.log("memorized");
+			dialog.html(beautify_result_html(localStorage.getItem(selected_string)));
 		}
 	});
 }
