@@ -61,6 +61,7 @@ sM = function(a) {
 //TK 값은 vM("string what you want to translate here"); 의 반환값을 가져다 쓰면된다!
 var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
+var memory = {};
 
 function translate(what_to_search) {
 	chrome.storage.sync.get(function(data) {
@@ -85,7 +86,7 @@ function translate(what_to_search) {
 					for (var i = 0; i < len; i++) {
 						ret += res_arr[0][i][0];
 					}
-					document.querySelector('#result').innerText = ret;
+					document.querySelector('#result').innerText = beautify_result_text(ret);
 					return ret;
 				} else {
 					chrome.tabs.create({
@@ -152,12 +153,13 @@ function selectionTranslate(selected_string, dialog) {
 						ret += res_arr[0][i][0];
 					}
 
-					if (ret.replace(/\n/g, "") == selected_string.replace(/\n/g, "")) {
+					if (ret.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
 						dialog.dialog('destroy').remove();
 						var dialog_html = "<div id='translate_dialog'><p></p></div>";
 						$("body").append(dialog_html);
 					} else {
-						dialog.html(ret.replace(/\n/g, '<br/>'));
+						memory[selected_string] = ret;
+						dialog.html(beautify_result_html(ret));
 					}
 				} else {
 					chrome.tabs.create({
@@ -169,69 +171,19 @@ function selectionTranslate(selected_string, dialog) {
 				}
 			}
 		}
-		req.send();
+		if (typeof memory[selected_string] === 'undefined'){
+			req.send();
+		}else {
+			//console.log("memorized");
+			dialog.html(beautify_result_html(memory[selected_string]));
+		}
 	});
 }
 
-////////////////////////
-
-var ajax_for_page_translate = function(what_to_search, section) {
-	var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-
-	req[what_to_search] = new XMLHttpRequest();
-	url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);
-	req[what_to_search].open("GET", url, true);
-
-	req[what_to_search].onreadystatechange = function(aEvt) {
-		if (req[what_to_search].readyState == 4) {
-			//readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-			//3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-			if (req[what_to_search].status == 200) { //status code 200 means OK
-				var res_arr = eval(req[what_to_search].responseText);
-				//alert(res_arr[0][0][0]);
-				var len = res_arr[0].length - 1;
-				var ret = "";
-				for (var i = 0; i < len; i++) {
-					ret += res_arr[0][i][0];
-				}
-				section.html(what_to_search.replace(what_to_search, ret));
-				//section.context.childNodes[0].textContent = ret;//testing
-				//document.querySelector('#result').innerText = ret;
-				console.log(ret);
-				return ret;
-			} else if (req[what_to_search].status == 503) {
-				//console.log(req[what_to_search].responseURL);
-				throw req[what_to_search].responseURL;
-			} else if (req[what_to_search].status == 403) {
-				section.html(req[what_to_search].responseText);
-				throw req[what_to_search].responseURL;
-			}
-		}
-	}
-	req[what_to_search].send();
+function beautify_result_html(ret){
+	return ret.replace(/(\n)/g, '<br/>').replace(/\. /g, '.<br/>');
 }
 
-function setAjaxAtHead() {
-	loader = document.createElement('script');
-	loader.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js";
-	document.getElementsByTagName('head')[0].appendChild(loader);
-	document.getElementsByTagName('body')[0].appendChild(loader);
-}
-
-
-/* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
-function translatePage_unique() {
-	setAjaxAtHead();
-
-	$('p, a, h1, h2, h3, h4, li').each(function() {
-		var text = $(this).text();
-		console.log("text %s is translated", text);
-		try {
-			ajax_for_page_translate(text, $(this));
-		} catch (err) {
-			//chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
-			return false;
-		}
-		//     $(this).html(text.replace($(this).text(), '번역된 문장'));
-	});
+function beautify_result_text(ret){
+	return ret.replace(/(\n)/g, '\n').replace(/\. /g, '.\n');
 }

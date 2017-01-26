@@ -61,6 +61,7 @@ sM = function(a) {
 //var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
 
 var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
+var form = "<div style='background-color: #E5E5EA; color: #000000; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
 var req = {};
 var memory = {};
 chrome.storage.local.get(function(data) {
@@ -70,17 +71,17 @@ chrome.storage.local.get(function(data) {
 		tar_lang = "ko";
 });
 
-function translate_for_page(what_to_search, section) {
-	req[what_to_search] = new XMLHttpRequest();
-	url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(what_to_search) + "&q=" + encodeURIComponent(what_to_search);
-	req[what_to_search].open("GET", url, true);
+function translate_for_page(origin_text, section) {
+	req[origin_text] = new XMLHttpRequest();
+	url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(origin_text) + "&q=" + encodeURIComponent(origin_text);
+	req[origin_text].open("GET", url, true);
 
-	req[what_to_search].onreadystatechange = function(aEvt) {
-		if (req[what_to_search].readyState == 4) {
+	req[origin_text].onreadystatechange = function(aEvt) {
+		if (req[origin_text].readyState == 4) {
 			//readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
 			//3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-			if (req[what_to_search].status == 200) { //status code 200 means OK
-				var res_arr = eval(req[what_to_search].responseText);
+			if (req[origin_text].status == 200) { //status code 200 means OK
+				var res_arr = eval(req[origin_text].responseText);
 				//alert(res_arr[0][0][0]);
 				var len = res_arr[0].length - 1;
 				var ret = "";
@@ -88,31 +89,32 @@ function translate_for_page(what_to_search, section) {
 					ret += res_arr[0][i][0];
 				}
 
-				memory[what_to_search] = ret;
-				var form = "<div style='background-color: #505050; color: #FFFFFF; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
+				memory[origin_text] = ret;
 				section.append(form + ret + "</div>");
-				//section.html(what_to_search.replace(what_to_search, ret));
+				//section.html(origin_text.replace(origin_text, ret));
 				//section.context.childNodes[0].textContent = ret;//testing
 				//document.querySelector('#result').innerText = ret;
-				console.log(ret);
 				return ret;
-			} else if (req[what_to_search].status == 503) {
-				//console.log(req[what_to_search].responseURL);
-				throw req[what_to_search].responseURL;
-			} else if (req[what_to_search].status == 403) {
-				section.html(req[what_to_search].responseText);
-				throw req[what_to_search].responseURL;
-			} else if (req[what_to_search].status == 443) {
-				//... but your computer or network may be sending automated queries. To protect our users, we can't process your request right now.
+			} else if (req[origin_text].status == 503) {
+				//console.log(req[origin_text].responseURL);
+				throw req[origin_text].responseURL;
+			} else if (req[origin_text].status == 403) {
+				section.html(req[origin_text].responseText);
+				throw req[origin_text].responseURL;
+			} else if (req[origin_text].status == 443) {
+        //... but your computer or network may be sending automated queries. To protect our users, we can't process your request right now.
+        throw req[origin_text].responseURL;
 			}
 		}
 	}
 
-	if (typeof memory[what_to_search] === 'undefined') {
-		console.log("undefined");
-		req[what_to_search].send();
+  //console.log(memory[origin_text]);
+	if (typeof memory[origin_text] === 'undefined') {
+		req[origin_text].send();
 	} else { // memorized
-		section.append("</br> " + memory[what_to_search]);
+		console.log(origin_text + "  cut-off");
+    //alert("cut-off");
+		section.append(form + memory[origin_text] + "</div>");
 	}
 }
 
@@ -124,25 +126,40 @@ function setAjaxAtHead() {
 }
 
 
-/* SOFT   <=   p  a   h1 h2 h3 h4 li  div  =>   EXTREME */
+/* SOFT   <=   p  a  td h1 h2 h3 h4 li  div  =>   EXTREME */
 function translatePage_unique() {
 	setAjaxAtHead();
 	//p, a, h1, h2, h3, h4, li
-	$('p, li').each(function() {
+	$('p, h1, h2 ,h3, h4, li').each(function() {
 		var text = $(this).text();
-		console.log("Original TEXT : %s ", text);
+		//console.log("Original TEXT : %s ", text);
 		try {
-			translate_for_page(text, $(this));
+			translate_for_page(text.trim(), $(this));
 		} catch (err) {
+      chrome.tabs.update({
+  			url: err
+  		});
 			//chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
 			return false;
 		}
 		//     $(this).html(text.replace($(this).text(), '번역된 문장'));
 	});
 
-	// $('li').each(function(){
-	//   $(this).children().each(function(){
-	//     translate_for_page($(this).text(), $(this))
-	//   })
-	// })
+  // $('a').each(function() {
+	// 	var text = $(this).text();
+	// 	//console.log("Original TEXT : %s ", text);
+	// 	try {
+	// 		translate_for_page(text.trim(), $(this));
+	// 	} catch (err) {
+	// 		//chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
+	// 		return false;
+	// 	}
+	// 	//     $(this).html(text.replace($(this).text(), '번역된 문장'));
+	// });
+
+	$('td').each(function() {
+		$(this).each(function() {
+			translate_for_page($(this).text().trim(), $(this))
+		})
+	})
 }
