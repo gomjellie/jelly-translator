@@ -21,7 +21,7 @@ It is an extension program that breaks down language barriers like jelly in Dora
 
 ## translate all page
 
-![func](docs/img/gif/instant.page.gif)
+![func](docs/img/gif/page.gif)
 
 # download on chrome store
 
