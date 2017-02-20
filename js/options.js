@@ -63,4 +63,4 @@ $("select").change(function() {
          tar_lang: lang_selected
       });
    }
-})
+});
