@@ -33,7 +33,7 @@ nhpup = {
   identifier: "pup",  // Name of ID and class of the popup box
   minMargin: 15,  // Set how much minimal space there should be (in pixels)
                   // between the popup and everything else (borders, mouse)
-  default_width: 200, // Will be set to width from css in document.ready
+  default_width: 550, // Will be set to width from css in document.ready
   move: false,   // Move it around with the mouse? we are only ready for that when the mouse event is set up.
                  // Besides, having this turned off initially is resource-friendly.
 
@@ -119,8 +119,6 @@ nhpup = {
     if (!e) var e = window.event;
     if (e.target) targ = e.target;
     else if (e.srcElement) targ = e.srcElement;
-    if (targ.nodeType == 3) // defeat Safari bug
-      targ = targ.parentNode;
     return targ;
   },
 
