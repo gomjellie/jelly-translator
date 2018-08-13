@@ -6,7 +6,7 @@
     "version": "1.9.0",
     "background": {
         "persistent": true,
-        "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/select.js"]
+        "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/select.js", "js/translate_page_unique.js"]
     },
     "browser_action": {
         "default_popup": "popup.html"
