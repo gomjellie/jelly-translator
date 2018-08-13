@@ -129,7 +129,7 @@ function translatePage() {
 
 }
 
-function selectionTranslate(selected_string, dialog) {
+function selectionTranslate(selected_string) {
    chrome.storage.sync.get(function(data) {
       var tar_lang = "ko";
       if (data)
@@ -154,13 +154,12 @@ function selectionTranslate(selected_string, dialog) {
                }
 
                if (ret.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
-                  dialog.dialog('destroy').remove();
                   var dialog_html = "<div id='translate_dialog'><p></p></div>";
                   $("body").append(dialog_html);
                } else {
-                  //memory[selected_string] = ret;
                   localStorage.setItem(selected_string, ret);
-                  dialog.html(beautify_result_html(ret));
+                  // dialog.html(beautify_result_html(ret));
+                  nhpup.popup(beautify_result_html(ret));
                }
             } else {
                window.open(req.responseURL, "_self");
@@ -172,7 +171,8 @@ function selectionTranslate(selected_string, dialog) {
          req.send();
       } else {
          console.log("memorized");
-         dialog.html(beautify_result_html(localStorage.getItem(selected_string)));
+         // dialog.html(beautify_result_html(localStorage.getItem(selected_string)));
+         nhpup.popup(beautify_result_html(localStorage.getItem(selected_string)));
       }
    });
 }
