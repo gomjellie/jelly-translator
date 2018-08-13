@@ -69,6 +69,6 @@ function translatePage(what_to_search) {
    var translated_url = page_base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(what_to_search);
 
    chrome.tabs.update({
-      url: translated_url;
+      url: translated_url
    });
 }

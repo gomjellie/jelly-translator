@@ -149,10 +149,10 @@ $(function() {
                   file: "jquery-3.1.1.min.js"
                },
                {
-                  file: "translate_page_unique.js"
+                  file: "papago_page_translation.js"
                },
                {
-                  code: "translatePage_unique();"
+                  code: "translatePageViaPapago();"
                }
             ]);
          }
