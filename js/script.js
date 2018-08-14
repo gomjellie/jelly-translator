@@ -66,18 +66,30 @@ var languageDict = {
    'yiddish': 'yi'
 };
 
-
+function getOs() {
+  var OSName = "Unknown";
+  if (window.navigator.userAgent.indexOf("Windows NT 10.0")!== -1) OSName="Windows 10";
+  if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1) OSName="Windows 8";
+  if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1) OSName="Windows 7";
+  if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1) OSName="Windows Vista";
+  if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1) OSName="Windows XP";
+  if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1) OSName="Windows 2000";
+  if (window.navigator.userAgent.indexOf("Mac")            !== -1) OSName="Mac/iOS";
+  if (window.navigator.userAgent.indexOf("X11")            !== -1) OSName="UNIX";
+  if (window.navigator.userAgent.indexOf("Linux")          !== -1) OSName="Linux";
+  return OSName;
+}
 function translatePopup(src) {
    translate(src);
 }
 
 function isCommands(cmd) {
-   if (cmd == 'help' ||
-      cmd == 'option' ||
-      cmd == "who made this?" ||
-      cmd == "reset" ||
-      cmd == "donate" ||
-      cmd == "manual" ||
+   if (cmd === 'help' ||
+      cmd === 'option' ||
+      cmd === "who made this?" ||
+      cmd === "reset" ||
+      cmd === "donate" ||
+      cmd === "manual" ||
       cmd.includes(">>")) {
 
       return true;
@@ -85,30 +97,44 @@ function isCommands(cmd) {
    return false;
 }
 
+function setShortCutHelp() {
+   var os = getOs();
+   if (os.indexOf("Windows") !== -1) {
+      document.querySelector("#src").placeholder = "Windows short cut : Ctrl + Shift + K"
+   }
+   else if(os.indexOf("Mac/iOS") !== -1) {
+      document.querySelector("#src").placeholder = "Mac short cut : Cmd + Shift + K"
+   }
+   else if(os.indexOf("Linux") !== -1) {
+      document.querySelector("#src").placeholder = "Linux short cut : Ctrl + Shift + K"
+   }
+}
+
+
 function handleCommand(cmd) {
-   if (cmd == 'help') {
+   if (cmd === 'help') {
       document.querySelector('#result').innerText = "command list:\n[help, option, who made this?, reset, donate]";
       return true;
-   } else if (cmd == 'option') {
+   } else if (cmd === 'option') {
       chrome.tabs.create({
          "url": "/options.html",
          "selected": true
       }, function(tab) {
          console.log(tab.id);
       });
-   } else if (cmd == 'who made this?') {
+   } else if (cmd === 'who made this?') {
       chrome.tabs.create({
          "url": "https://gomjellie.github.io",
          "selected": true
       }, function(tab) {});
-   } else if (cmd == "reset") {
+   } else if (cmd === "reset") {
       chrome.storage.sync.set({
          tar_lang: 'ko'
       });
       document.querySelector('#result').innerText = "tar_lang: ko";
-   } else if (cmd == "donate") {
-      document.querySelector('#result').innerText = "개발자에게 커피한잔의 여유를....\n우리은행 1002-887-373373 오인규";
-   } else if (cmd == "manual") {
+   } else if (cmd === "donate") {
+      document.querySelector('#result').innerText = "Woori Bank 1002-887-373373 Oh inkyu";
+   } else if (cmd === "manual") {
       chrome.tabs.create({
          "url": "https://gomjellie.github.io/jelly-translator",
          "selected": true
@@ -175,3 +201,5 @@ function executeScripts(tabId, injectDetailsArray) {
    if (callback !== null)
       callback(); // execute outermost function
 }
+
+setShortCutHelp();

@@ -3,7 +3,7 @@
 
     "name": "jellyTranslator",
     "description": "translates all page",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "background": {
         "persistent": true,
         "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"]
@@ -47,10 +47,10 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-                "windows": "Ctrl+D",
-                "mac": "Command+J",
-                "chromeos": "Ctrl+D",
-                "linux": "Ctrl+D"
+                "windows": "Ctrl+Shift+K",
+                "mac": "Command+Shift+K",
+                "chromeos": "Ctrl+Shift+K",
+                "linux": "Ctrl+Shift+K"
             }
         }
     }
