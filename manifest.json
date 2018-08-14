@@ -3,7 +3,7 @@
 
     "name": "jellyTranslator",
     "description": "translates all page",
-    "version": "2.0.3",
+    "version": "2.1.0",
     "background": {
         "persistent": true,
         "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"]
