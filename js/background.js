@@ -225,3 +225,29 @@ chrome.runtime.onInstalled.addListener(function(details) {
     });
     reload();
 });
+
+chrome.runtime.onMessageExternal.addListener(function(request, sender, sendResponse) {
+  switch (request.method) {
+    case 'getClipboard':
+      sendResponse(getClipboard());
+      break;
+    case 'setClipboard':
+      sendResponse(setClipboard(request.value));
+      break;
+    default:
+      console.error('Unknown method "%s"', request.method);
+      break;
+  }
+});
+
+var clip_board_cache = 'none';
+
+function getClipboard() {
+    return clip_board_cache;
+}
+
+function setClipboard(value) {
+    var prev = clip_board_cache;
+    clip_board_cache = value;
+    return clip_board_cache !== prev;
+}

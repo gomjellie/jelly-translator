@@ -6,7 +6,7 @@
     "version": "2.1.0",
     "background": {
         "persistent": true,
-        "scripts": ["js/jquery-3.1.1.min.js", "js/background.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"]
+        "scripts": ["js/background.js"]
     },
     "browser_action": {
         "default_popup": "popup.html"
@@ -21,18 +21,25 @@
         "webRequestBlocking",
         "<all_urls>",
         "*://*.google.com/*",
-        "background"
+        "background",
+        "clipboardRead",
+        "clipboardWrite"
     ],
+    "externally_connectable": {
+        "matches": [
+            "http://localhost/*"
+        ]
+    },
     "content_security_policy": [
         "script-src 'self' 'unsafe-eval'; object-src 'self'",
         "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
     ],
     "content_scripts": [{
         "css": ["css/jquery-ui.css"],
-        "js": ["js/jquery-3.1.1.min.js", "js/script.js", "js/translate.js", "js/jquery-ui.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"],
+        "js": ["js/jquery-3.1.1.min.js", "js/translate.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"],
         "matches": ["http://*/*", "https://*/*"]
     }],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' script.js; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' popup.js; object-src 'self'",
     "content_security_policy": "script-src 'self' 'unsafe-eval' translate.js; object-src 'self'",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "icons": {
