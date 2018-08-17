@@ -171,7 +171,7 @@ $(function() {
             translatePage();
          else {
             executeScripts(null, [{
-                  file: "jquery-3.1.1.min.js"
+                  file: "lib/jquery-3.1.1.min.js"
                },
                {
                   file: "papago_page_translation.js"

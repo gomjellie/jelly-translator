@@ -30,7 +30,7 @@
     ],
     "content_scripts": [{
         "css": ["css/jquery-ui.css"],
-        "js": ["js/jquery-3.1.1.min.js", "js/translate.js", "js/nhpup.js",  "js/select.js", "js/papago_page_translation.js"],
+        "js": ["js/lib/jquery-3.1.1.min.js", "js/translate.js", "js/lib/nhpup.js",  "js/select.js", "js/papago_page_translation.js"],
         "matches": ["http://*/*", "https://*/*"]
     }],
     "content_security_policy": "script-src 'self' 'unsafe-eval' popup.js; object-src 'self'",
