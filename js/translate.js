@@ -75,10 +75,8 @@ function translate(what_to_search) {
     req.open("GET", url, true);
 
     req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-        //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-        //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-        if (req.status == 200) { //status code 200 means OK
+      if (req.readyState === 4) {
+        if (req.status === 200) { //status code 200 means OK
           var res_arr = eval(req.responseText);
           //alert(res_arr[0][0][0]);
           var len = res_arr[0].length - 1;
@@ -98,7 +96,7 @@ function translate(what_to_search) {
           return req.responseURL;
         }
       }
-    }
+    };
     req.send();
   });
 
@@ -127,14 +125,14 @@ function translatePage() {
       url: translated_url
     });
   });
-
 }
 
 function selectionTranslate(selected_string) {
   chrome.storage.sync.get(function (data) {
     var tar_lang = "ko";
-    if (data)
+    if (data !== undefined) {
       tar_lang = data.tar_lang;
+    }
     else
       tar_lang = "ko";
     req = new XMLHttpRequest();
@@ -142,30 +140,36 @@ function selectionTranslate(selected_string) {
     req.open("GET", url, true);
 
     req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-        //readyState 는 0 ~ 4 까지 있는데 1은 send를 호출하기전,
-        //3은 일부를 받은상태, 4는 데이터를 전부 받은상태이다.
-        if (req.status == 200) { //status code 200 means OK
+      if (req.readyState === 4) {
+        if (req.status === 200) {
           var res_arr = eval(req.responseText);
-          //alert(res_arr[0][0][0]);
           var len = res_arr[0].length - 1;
           ret = "";
           for (var i = 0; i < len; i++) {
             ret += res_arr[0][i][0];
           }
 
+          var stored_value = localStorage.getItem(selected_string) || "{}";
+          stored_value = JSON.parse(stored_value);
+          stored_value[tar_lang] = ret;
+          localStorage.setItem(selected_string, JSON.stringify(stored_value));
+
           if (ret.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
-            var dialog_html = "<div id='translate_dialog'><p></p></div>";
-            $("body").append(dialog_html);
+            /*
+             if result is same with original text, do nothing
+             */
           } else {
-            localStorage.setItem(selected_string, ret);
-            var _ret = beautify_result_html(ret);
-            if (_ret.length < 10) {
+
+            if (ret.trim() === "") {
+              return ""
+            }
+
+            console.log(ret);
+            if (ret.length < 10) {
               nhpup.popup(beautify_result_html(ret));
               nhpup.pup.width(200);
-              nhpup.pup.css({"width" : 200});
-            }
-            else {
+              nhpup.pup.css({"width": 200});
+            } else {
               nhpup.popup(beautify_result_html(ret));
             }
           }
@@ -176,11 +180,20 @@ function selectionTranslate(selected_string) {
       }
     };
     if (localStorage.getItem(selected_string) === null) {
+      /*
+       if not cached
+       */
       req.send();
     } else {
-      console.log("memorized");
-      // dialog.html(beautify_result_html(localStorage.getItem(selected_string)));
-      nhpup.popup(beautify_result_html(localStorage.getItem(selected_string)));
+      console.log("cached");
+
+      var stored_value = localStorage.getItem(selected_string);
+      stored_value = JSON.parse(stored_value);
+      if (stored_value.hasOwnProperty(tar_lang)) {
+        nhpup.popup(beautify_result_html(stored_value[tar_lang]));
+      } else {
+        req.send();
+      }
     }
   });
 }
