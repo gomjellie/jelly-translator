@@ -171,7 +171,7 @@ $(function() {
             translatePage();
          else {
             executeScripts(null, [{
-                  file: "jquery-3.1.1.min.js"
+                  file: "lib/jquery-3.1.1.min.js"
                },
                {
                   file: "papago_page_translation.js"
@@ -212,3 +212,17 @@ function fill_src_from_clipboard(response) {
 }
 
 fill_src_from_clipboard();
+
+function copyTextToClipboard(text) {
+  /*
+   you can use this function to flush Clipboard
+   ex ) copyTextToClipboard('\0')
+   */
+  var copyFrom = $('<textarea/>');
+  copyFrom.text(text);
+  $('body').append(copyFrom);
+  copyFrom.select();
+  document.execCommand('copy');
+  copyFrom.remove();
+}
+
