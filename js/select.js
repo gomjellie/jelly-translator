@@ -30,6 +30,7 @@ var show_nhpup = function (mouseEvent) {
     } catch (exception) {
       txt = String(txt);
     }
+    txt = txt.trim();
     if (txt !== "") {
       selectionTranslate(txt);
     } else if (txt === "") {

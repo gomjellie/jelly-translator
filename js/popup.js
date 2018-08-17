@@ -110,7 +110,6 @@ function setShortCutHelp() {
    }
 }
 
-
 function handleCommand(cmd) {
    if (cmd === 'help') {
       document.querySelector('#result').innerText = "command list:\n[help, option, who made this?, reset, donate]";
@@ -203,3 +202,13 @@ function executeScripts(tabId, injectDetailsArray) {
 }
 
 setShortCutHelp();
+
+function fill_src_from_clipboard(response) {
+  document.getElementById('src').select();
+  document.execCommand('paste');
+  var src = document.getElementById('src').value;
+  translatePopup(src);
+  console.log(response);
+}
+
+fill_src_from_clipboard();

@@ -1,4 +1,3 @@
-//$('select').niceSelect();
 
 jQuery(document).ready(function($) {
    chrome.storage.sync.get(function(data) {

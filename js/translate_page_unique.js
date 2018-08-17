@@ -89,12 +89,12 @@ function translate_for_page(origin_text, section) {
                ret += res_arr[0][i][0];
             }
 
-            //memory[origin_text] = ret;
-            localStorage.setItem(origin_text, ret);
+            var stored_value = localStorage.getItem(selected_string) || "{}";
+            stored_value = JSON.parse(stored_value);
+            stored_value[tar_lang] = ret;
+            localStorage.setItem(origin_text, JSON.stringify(stored_value));
+
             section.append(form + ret + "</div>");
-            //section.html(origin_text.replace(origin_text, ret));
-            //section.context.childNodes[0].textContent = ret;//testing
-            //document.querySelector('#result').innerText = ret;
             return ret;
          } else if (req[origin_text].status == 503) {
             //console.log(req[origin_text].responseURL);
@@ -107,15 +107,22 @@ function translate_for_page(origin_text, section) {
             throw req[origin_text].responseURL;
          }
       }
-   }
+   };
 
    //console.log(memory[origin_text]);
    if (localStorage.getItem(origin_text) === null) {
       req[origin_text].send();
    } else { // memorized
       console.log(origin_text + "  cut-off");
-      //alert("cut-off");
-      section.append(form + localStorage.getItem(origin_text) + "</div>");
+
+     var stored_value = localStorage.getItem(origin_text);
+     stored_value = JSON.parse(stored_value);
+     if (stored_value.hasOwnProperty(tar_lang)) {
+       section.append(form + stored_value[tar_lang] + "</div>");
+     } else {
+       req[origin_text].send();
+     }
+     section.append(form + localStorage.getItem(origin_text) + "</div>");
    }
 }
 
@@ -133,31 +140,13 @@ function translatePage_unique() {
    //p, a, h1, h2, h3, h4, li
    $('p, h1, h2 ,h3, h4, li').each(function() {
       var text = $(this).text();
-      //console.log("Original TEXT : %s ", text);
       try {
          translate_for_page(text.trim(), $(this));
       } catch (err) {
          window.open(err, "_self");
-         // chrome.tabs.update({
-         // 	url: err
-         // });
-         //chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
          return false;
       }
-      //     $(this).html(text.replace($(this).text(), '번역된 문장'));
    });
-
-   // $('a').each(function() {
-   // 	var text = $(this).text();
-   // 	//console.log("Original TEXT : %s ", text);
-   // 	try {
-   // 		translate_for_page(text.trim(), $(this));
-   // 	} catch (err) {
-   // 		//chrome.tabs.create({ "url": err, "selected": true }, function(tab) {});
-   // 		return false;
-   // 	}
-   // 	//     $(this).html(text.replace($(this).text(), '번역된 문장'));
-   // });
 
    $('td').each(function() {
       $(this).each(function() {
