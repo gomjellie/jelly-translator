@@ -3,7 +3,7 @@
 
     "name": "jellyTranslator",
     "description": "translates all page",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "background": {
         "persistent": true,
         "scripts": ["js/background.js"]
