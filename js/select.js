@@ -1,17 +1,11 @@
 var click_in_vane_count = 0;
 
-$(document).ready(function () {
-  chrome.storage.sync.get(function (data) {
-    if (!data.selection_translate) {
-      return;
-    }
-    document.addEventListener('mouseup', show_nhpup);
-  });
-});
+document.addEventListener('mouseup', show_nhpup);
 
-var show_nhpup = function (mouseEvent) {
+function show_nhpup (mouseEvent) {
   chrome.storage.sync.get(function (data) { // function which get selected text
     if (!data.selection_translate) { // if option is off halt function
+      nhpup.hide();
       return;
     }
     var txt = '';
@@ -42,5 +36,5 @@ var show_nhpup = function (mouseEvent) {
       }
     }
   });
-};
+}
 
