@@ -167,15 +167,14 @@ function selectionTranslate(selected_string) {
                         console.log(ret);
                         nhpup.popup(beautify_result_html(ret));
 
-                        if (ret.length < 10) {
-                            nhpup.pup.width(200);
-                            nhpup.pup.css({"width": 200});
-                        } else if (ret.length > 100) {
+                        if (ret.length < 15) {
+                            nhpup.pup.width(150);
+                        } else if (ret.length < 26) {
+                            nhpup.pup.width(300);
+                        }else if (ret.length > 100) {
                             nhpup.pup.width(750);
-                            nhpup.pup.css({"width": 750});
                         } else {
                             nhpup.pup.width(550);
-                            nhpup.pup.css({"width": 550});
                         }
                     }
                 } else {
@@ -197,15 +196,14 @@ function selectionTranslate(selected_string) {
             if (stored_value.hasOwnProperty(tar_lang)) {
                 nhpup.popup(beautify_result_html(stored_value[tar_lang]));
                 var stored_text = stored_value[tar_lang];
-                if (stored_text.length < 10) {
-                    nhpup.pup.width(200);
-                    nhpup.pup.css({"width": 200});
+                if (stored_text.length < 15) {
+                    nhpup.pup.width(150);
+                } else if (stored_text.length < 26) {
+                    nhpup.pup.width(300);
                 } else if (stored_text.length > 100) {
                     nhpup.pup.width(750);
-                    nhpup.pup.css({"width": 750});
                 } else {
                     nhpup.pup.width(550);
-                    nhpup.pup.css({"width": 550});
                 }
             } else {
                 req.send();
