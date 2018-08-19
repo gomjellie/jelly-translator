@@ -29,7 +29,7 @@ function show_nhpup (mouseEvent) {
       selectionTranslate(txt);
     } else if (txt === "") {
       click_in_vane_count++;
-      if (click_in_vane_count > 1) { // when user clicks non-dialog area 3 times
+      if (click_in_vane_count >= 1) { // when user clicks non-dialog area 3 times
         nhpup.hide();
         click_in_vane_count = 0;
 
