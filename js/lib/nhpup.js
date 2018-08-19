@@ -154,7 +154,6 @@ nhpup = {
 
   hide: function () {
     nhpup.pup.hide();
-    nhpup.move = false;
   }
 };
 
