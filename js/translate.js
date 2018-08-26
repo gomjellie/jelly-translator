@@ -2,7 +2,6 @@
 translate_cache = {
   get: function(src_string, tar_lang) {
     try {
-      // old user's cache structure makes error here
       var stored_value = localStorage.getItem(src_string) || "{}";
       stored_value = JSON.parse(stored_value);
       if (stored_value.hasOwnProperty(tar_lang)) {
@@ -14,6 +13,9 @@ translate_cache = {
       return undefined;
     }
     catch(exception) {
+      // old user's cache structure makes error here
+      // inject empty object
+      localStorage.setItem(src_string, "{}");
       console.log(exception);
       return undefined;
     }
