@@ -79,9 +79,6 @@ function getOs() {
   if (window.navigator.userAgent.indexOf("Linux")          !== -1) OSName="Linux";
   return OSName;
 }
-function translatePopup(src) {
-   translate(src);
-}
 
 function isCommands(cmd) {
    if (cmd === 'help' ||
@@ -146,7 +143,7 @@ function handleCommand(cmd) {
          });
          translatePopup(cmd.split(">>")[0]);
       } else {
-         document.querySelector('#result').innerText = change_tar_lang + "is not in languageDict";
+         document.querySelector('#result').innerText = change_tar_lang + " is not in languageDict";
       }
    }
 }
