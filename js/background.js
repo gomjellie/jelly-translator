@@ -223,5 +223,10 @@ chrome.runtime.onInstalled.addListener(function(details) {
     chrome.storage.local.set({
         'exposedHeaders': ''
     });
+    chrome.storage.sync.set({
+      selection_translate: true,
+      tar_lang: 'kr'
+    });
+
     reload();
 });
