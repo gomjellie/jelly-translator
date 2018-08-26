@@ -1,58 +1,72 @@
 {
-    "manifest_version": 2,
-
-    "name": "jellyTranslator",
-    "description": "translates all page",
-    "version": "2.1.7",
-    "background": {
-        "persistent": true,
-        "scripts": ["js/background.js"]
-    },
-    "browser_action": {
-        "default_popup": "popup.html"
-    },
-    "permissions": [
-        "activeTab",
-        "tabs",
+  "manifest_version": 2,
+  "name": "jellyTranslator",
+  "description": "translates all page",
+  "version": "2.1.7",
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "js/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/*",
+    "https://*/*",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "*://*.google.com/*",
+    "clipboardRead",
+    "clipboardWrite"
+  ],
+  "content_security_policy": [
+    "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
+  ],
+  "content_scripts": [
+    {
+      "css": [
+        "css/jquery-ui.css"
+      ],
+      "js": [
+        "js/lib/jquery-3.1.1.min.js",
+        "js/lib/google.token.js",
+        "js/translate.js",
+        "js/lib/nhpup.js",
+        "js/select.js",
+        "js/papago_page_translation.js"
+      ],
+      "matches": [
         "http://*/*",
-        "https://*/*",
-        "storage",
-        "webRequest",
-        "webRequestBlocking",
-        "<all_urls>",
-        "*://*.google.com/*",
-        "clipboardRead",
-        "clipboardWrite"
-    ],
-    "content_security_policy": [
-        "script-src 'self' 'unsafe-eval'; object-src 'self'",
-        "script-src 'self' blob: filesystem: chrome-extension-resource: 'unsafe-eval'"
-    ],
-    "content_scripts": [{
-        "css": ["css/jquery-ui.css"],
-        "js": ["js/lib/jquery-3.1.1.min.js", "js/translate.js", "js/lib/nhpup.js",  "js/select.js", "js/papago_page_translation.js"],
-        "matches": ["http://*/*", "https://*/*"]
-    }],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' popup.js; object-src 'self'",
-    "content_security_policy": "script-src 'self' 'unsafe-eval' translate.js; object-src 'self'",
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "icons": {
-        "16": "src/icons/jelly translator icon16.png",
-        "48": "src/icons/jelly translator icon48.png",
-        "128": "src/icons/jelly translator icon128.png"
-    },
-    "web_accessible_resources": [
-        "options.html"
-    ],
-    "options_page": "options.html",
-    "commands": {
-        "_execute_browser_action": {
-            "suggested_key": {
-                "windows": "Ctrl+Shift+K",
-                "mac": "Command+Shift+K",
-                "chromeos": "Ctrl+Shift+K",
-                "linux": "Ctrl+Shift+K"
-            }
-        }
+        "https://*/*"
+      ]
     }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' google.token.js; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "icons": {
+    "16": "src/icons/jelly translator icon16.png",
+    "48": "src/icons/jelly translator icon48.png",
+    "128": "src/icons/jelly translator icon128.png"
+  },
+  "web_accessible_resources": [
+    "options.html"
+  ],
+  "options_page": "options.html",
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K",
+        "chromeos": "Ctrl+Shift+K",
+        "linux": "Ctrl+Shift+K"
+      }
+    }
+  }
 }
