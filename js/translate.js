@@ -1,7 +1,4 @@
 
-var url = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=ko&hl=ko&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&srcrom=0&ssel=0&tsel=0&kc=1&tk=693132.842370&q=if%20i%20were%20you";
-var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-
 function translatePopup(src_text) {
   chrome.storage.sync.get(function (data) {
     var tar_lang = "ko";
@@ -26,16 +23,16 @@ function translatePopup(src_text) {
 
 }
 
-var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url";
-
 function translatePage() {
+  var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url";
   var current_url;
   chrome.storage.sync.get(function (data) {
     if (data)
       tar_lang = data.tar_lang;
     else
-      tar_lang = "en";
+      tar_lang = "ko";
   });
+
   chrome.tabs.query({
     'active': true,
     'currentWindow': true
@@ -51,8 +48,10 @@ function translatePage() {
 }
 
 function translate(src_string, tar_lang, success, fail) {
-  req = new XMLHttpRequest();
-  url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(src_string) + "&q=" + encodeURIComponent(src_string);
+  var req = new XMLHttpRequest();
+  var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
+
+  var url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(src_string) + "&q=" + encodeURIComponent(src_string);
   req.open("GET", url, true);
 
   req.onreadystatechange = function (aEvt) {
@@ -77,9 +76,7 @@ function translate(src_string, tar_lang, success, fail) {
           success(ret);
         }
       } else {
-        /*
-        if response is not okay
-         */
+        // if response is not okay
         fail(req);
       }
     }
