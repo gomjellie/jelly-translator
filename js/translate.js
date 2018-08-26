@@ -1,4 +1,67 @@
 
+translate_cache = {
+  get: function(src_string, tar_lang) {
+    try {
+      // old user's cache structure makes error here
+      var stored_value = localStorage.getItem(src_string) || "{}";
+      stored_value = JSON.parse(stored_value);
+      if (stored_value.hasOwnProperty(tar_lang)) {
+        var stored_text = stored_value[tar_lang];
+
+        return stored_text;
+      }
+
+      return undefined;
+    }
+    catch(exception) {
+      console.log(exception);
+      return undefined;
+    }
+  },
+  set: function(src_string, tar_lang, res_string) {
+    var stored_value = localStorage.getItem(src_string) || "{}";
+    stored_value = JSON.parse(stored_value);
+    stored_value[tar_lang] = res_string;
+    localStorage.setItem(src_string, JSON.stringify(stored_value));
+  }
+};
+
+
+function translate(src_string, tar_lang, success, fail) {
+  var req = new XMLHttpRequest();
+  var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
+
+  var url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(src_string) + "&q=" + encodeURIComponent(src_string);
+  req.open("GET", url, true);
+
+  req.onreadystatechange = function (aEvt) {
+    if (req.readyState === 4) {
+      if (req.status === 200) {
+        var res_arr = eval(req.responseText); // convert string to array-like object
+        var len = res_arr[0].length - 1;
+        var ret = "";
+        for (var i = 0; i < len; i++) {
+          ret += res_arr[0][i][0];
+        }
+
+        translate_cache.set(src_string, tar_lang, ret);
+
+        if (ret.replace(/\n/g, "") === src_string.replace(/\n/g, "")) {
+          //if result is same with original text, do nothing
+          return "";
+        } else {
+          success(ret);
+        }
+      } else {
+        // if response is not okay
+        fail(req);
+      }
+    }
+  };
+
+  req.send();
+}
+
 function translatePopup(src_text) {
   chrome.storage.sync.get(function (data) {
     var tar_lang = "ko";
@@ -18,7 +81,16 @@ function translatePopup(src_text) {
       return req.responseURL;
     };
 
-    translate(src_text, tar_lang, on_success, on_fail);
+    var stored_string = translate_cache.get(src_text, tar_lang);
+    if (stored_string === undefined) {
+      translate(src_text, tar_lang, on_success, on_fail);
+    }else {
+      if (stored_string.replace(/\n/g, "") === src_text.replace(/\n/g, "")) {
+        return;
+      }
+
+      on_success(stored_string);
+    }
   });
 
 }
@@ -47,43 +119,6 @@ function translatePage() {
   });
 }
 
-function translate(src_string, tar_lang, success, fail) {
-  var req = new XMLHttpRequest();
-  var base_url = "https://translate.google.com/translate_a/single?client=t&sl=auto&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=7&";
-
-  var url = base_url + "tl=" + tar_lang + "&hl=" + tar_lang + "&tk=" + vM(src_string) + "&q=" + encodeURIComponent(src_string);
-  req.open("GET", url, true);
-
-  req.onreadystatechange = function (aEvt) {
-    if (req.readyState === 4) {
-      if (req.status === 200) {
-        var res_arr = eval(req.responseText); // convert string to array-like object
-        var len = res_arr[0].length - 1;
-        var ret = "";
-        for (var i = 0; i < len; i++) {
-          ret += res_arr[0][i][0];
-        }
-
-        var stored_value = localStorage.getItem(src_string) || "{}";
-        stored_value = JSON.parse(stored_value);
-        stored_value[tar_lang] = ret;
-        localStorage.setItem(src_string, JSON.stringify(stored_value));
-
-        if (ret.replace(/\n/g, "") === src_string.replace(/\n/g, "")) {
-          //if result is same with original text, do nothing
-          return "";
-        } else {
-          success(ret);
-        }
-      } else {
-        // if response is not okay
-        fail(req);
-      }
-    }
-  };
-
-  req.send();
-}
 
 function selectionTranslate(selected_string) {
   chrome.storage.sync.get(function (data) {
@@ -117,34 +152,17 @@ function selectionTranslate(selected_string) {
     };
 
 
-    if (localStorage.getItem(selected_string) === null) {
-      // if not cached
+    var stored_string = translate_cache.get(selected_string, tar_lang);
+    if (stored_string === undefined) {
       translate(selected_string, tar_lang, on_success, on_fail);
     } else {
-      console.log("cached");
-
-      var stored_value = localStorage.getItem(selected_string);
-      stored_value = JSON.parse(stored_value);
-      if (stored_value.hasOwnProperty(tar_lang)) {
-        var stored_text = stored_value[tar_lang];
-        if (stored_text.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
-          return;
-        }
-        nhpup.popup(beautify_result_html(stored_value[tar_lang]));
-
-        if (stored_text.length < 15) {
-          nhpup.pup.width(150);
-        } else if (stored_text.length < 26) {
-          nhpup.pup.width(300);
-        } else if (stored_text.length > 100) {
-          nhpup.pup.width(750);
-        } else {
-          nhpup.pup.width(550);
-        }
-      } else {
-        translate(selected_string, tar_lang, on_success, on_fail);
+      if (stored_string.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
+        return;
       }
+
+      on_success(stored_string);
     }
+
   });
 }
 
