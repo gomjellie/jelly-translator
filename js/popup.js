@@ -171,7 +171,7 @@ $(function() {
                   file: "lib/jquery-3.1.1.min.js"
                },
                {
-                  file: "page_iteration_translate.js"
+                  file: "translate.js"
                },
                {
                   code: "iterateTranslate();"

@@ -39,8 +39,7 @@
         "js/lib/google.token.js",
         "js/translate.js",
         "js/lib/nhpup.js",
-        "js/select.js",
-        "js/page_iteration_translate.js"
+        "js/select.js"
       ],
       "matches": [
         "http://*/*",
