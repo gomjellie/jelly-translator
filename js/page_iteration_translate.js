@@ -12,7 +12,6 @@ function iterateTranslate() {
   var form = "<div style='background-color: #E5E5EA; width: inherit; color: #333333; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
 
   function on_success(res) {
-    console.log(res);
     var translate_result = res.translate_result;
     var context = res.context;
     if (context === undefined) {
@@ -52,11 +51,9 @@ function iterateTranslate() {
         translate(tidy_text, tar_lang, $this).then(on_success).catch(on_fail);
       } else {
         if (stored_string.replace(/\n/g, "") === tidy_text.replace(/\n/g, "")) {
-          console.log("stored_string === tidy_text");
           return;
         }
 
-        console.log("on_success(stored_string, $this");
         on_success({translate_result: stored_string, context: $this});
       }
 

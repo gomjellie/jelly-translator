@@ -93,7 +93,7 @@ function translatePopup(src_text) {
         return;
       }
 
-      on_success(stored_string);
+      on_success({translate_result: stored_string});
     }
   });
 
@@ -159,15 +159,13 @@ function selectionTranslate(selected_string) {
 
     var stored_string = translate_cache.get(selected_string, tar_lang);
     if (stored_string === undefined) {
-      console.log('stored_string: ' + stored_string);
       translate(selected_string, tar_lang).then(on_success).catch(on_fail);
-      console.log('after translate');
     } else {
       if (stored_string.replace(/\n/g, "") === selected_string.replace(/\n/g, "")) {
         return;
       }
 
-      on_success(stored_string);
+      on_success({translate_result: stored_string});
     }
 
   });
