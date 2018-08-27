@@ -171,10 +171,10 @@ $(function() {
                   file: "lib/jquery-3.1.1.min.js"
                },
                {
-                  file: "papago_page_translation.js"
+                  file: "page_iteration_translate.js"
                },
                {
-                  code: "translatePageViaPapago();"
+                  code: "iterateTranslate();"
                }
             ]);
          }
