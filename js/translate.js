@@ -98,10 +98,6 @@ function translatePopup(src_text) {
     if (stored_string === undefined) {
       translate(src_text, tar_lang).then(on_success).catch(on_fail);
     }else {
-      if (stored_string.replace(/\n/g, "") === src_text.replace(/\n/g, "")) {
-        return;
-      }
-
       on_success({translate_result: stored_string});
     }
   });
