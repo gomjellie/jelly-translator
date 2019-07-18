@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "jellyTranslator",
   "description": "translates all page",
-  "version": "2.2",
+  "version": "2.2.1",
   "background": {
     "persistent": true,
     "scripts": [
