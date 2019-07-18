@@ -1,69 +1,38 @@
 var languageDict = {
-   'afrikaans': 'af',
-   'albanian': 'sq',
-   'arabic': 'ar',
-   'azerbaijani': 'az',
-   'basque': 'eu',
-   'bengali': 'bn',
-   'belarusian': 'be',
-   'bulgarian': 'bg',
-   'catalan': 'ca',
    'chinese': 'zh-CN',
    'chinese simplified': 'zh-CN',
    'chinese traditional': 'zh-TW',
-   'croatian': 'hr',
-   'czech': 'cs',
-   'danish': 'da',
-   'dutch': 'nl',
    'english': 'en',
-   'esperanto': 'eo',
-   'estonian': 'et',
-   'filipino': 'tl',
-   'finnish': 'fi',
-   'french': 'fr',
-   'galician': 'gl',
-   'georgian': 'ka',
-   'german': 'de',
-   'greek': 'el',
-   'gujarati': 'gu',
-   'haitian creole': 'ht',
-   'hebrew': 'iw',
-   'hindi': 'hi',
-   'hungarian': 'hu',
-   'icelandic': 'is',
-   'indonesian': 'id',
-   'irish': 'ga',
-   'italian': 'it',
    'japanese': 'ja',
-   'kannada': 'kn',
    'korean': 'ko',
-   'latin': 'la',
-   'latvian': 'lv',
-   'lithuanian': 'lt',
-   'macedonian': 'mk',
    'malay': 'ms',
-   'maltese': 'mt',
-   'norwegian': 'no',
-   'persian': 'fa',
-   'polish': 'pl',
-   'portuguese': 'pt',
-   'romanian': 'ro',
    'russian': 'ru',
-   'serbian': 'sr',
-   'slovak': 'sk',
-   'slovenian': 'sl',
-   'spanish': 'es',
-   'swahili': 'sw',
-   'swedish': 'sv',
-   'tamil': 'ta',
-   'telugu': 'te',
-   'thai': 'th',
-   'turkish': 'tr',
-   'ukrainian': 'uk',
-   'urdu': 'ur',
-   'vietnamese': 'vi',
-   'welsh': 'cy',
-   'yiddish': 'yi'
+   'spanish': 'es'
+};
+
+
+ClipBoard = {
+  copy: function (data) {
+    var copyFrom = $('<textarea/>');
+    copyFrom.text(data);
+    $('body').append(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
+    copyFrom.remove();
+    $("#src").select();
+  },
+  paste: function () {
+    return new Promise(function (resolve, reject) {
+      var copyFrom = $('<textarea id="tmp"/>');
+      $('body').append(copyFrom);
+      copyFrom.select();
+      document.execCommand('paste');
+      var src = document.getElementById('tmp').value;
+      copyFrom.remove();
+      $("#src").select();
+      resolve(src);
+    });
+  }
 };
 
 function getOs() {
@@ -87,6 +56,7 @@ function isCommands(cmd) {
       cmd === "reset" ||
       cmd === "donate" ||
       cmd === "manual" ||
+      cmd === "flush"  ||
       cmd.includes(">>")) {
 
       return true;
@@ -135,12 +105,16 @@ function handleCommand(cmd) {
          "url": "https://gomjellie.github.io/jelly-translator",
          "selected": true
       }, function(tab) {});
-   } else if (cmd.includes(">>")) {
+   } else if (cmd === "flush") {
+      ClipBoard.copy("\0");
+     document.querySelector('#result').innerText = "flushed!!";
+   }else if (cmd.includes(">>")) {
       var change_tar_lang = cmd.split(">>")[1].replace(/ /g, "").toLowerCase();
       if (change_tar_lang in languageDict) {
          chrome.storage.sync.set({
             tar_lang: languageDict[change_tar_lang]
          });
+         document.getElementById("sel").value = languageDict[change_tar_lang];
          translatePopup(cmd.split(">>")[0]);
       } else {
          document.querySelector('#result').innerText = change_tar_lang + " is not in languageDict";
@@ -162,22 +136,26 @@ if (document.querySelector("#src")) {
 
 // when translate page button clicked
 $(function() {
-   $("#translateBtn").click(function(e) {
+   $("#pasteBtn").click(function(e) {
       chrome.storage.sync.get(function(data) {
-         if (data.page_translate)
-            translatePage();
-         else {
+         fill_src_from_clipboard();
+         console.log(document.querySelector('#src').value);
+         translatePopup(document.querySelector('#src').value);
+
+         return;
+        // chrome 72version 부터 CORS정책 회피가 불가해져서 부득이하게 off함
+        if (!data.page_translate) {
             executeScripts(null, [{
                   file: "lib/jquery-3.1.1.min.js"
                },
                {
-                  file: "papago_page_translation.js"
+                  file: "translate.js"
                },
                {
-                  code: "translatePageViaPapago();"
+                  code: "iterateTranslate();"
                }
             ]);
-         }
+        }
       });
    });
 });
@@ -198,17 +176,17 @@ function executeScripts(tabId, injectDetailsArray) {
       callback(); // execute outermost function
 }
 
-setShortCutHelp();
+$(document).ready(function () {
+  setShortCutHelp();
+});
 
-function fill_src_from_clipboard(response) {
+
+function fill_src_from_clipboard() {
   document.getElementById('src').select();
   document.execCommand('paste');
-  var src = document.getElementById('src').value;
-  translatePopup(src);
-  console.log(response);
 }
-
-fill_src_from_clipboard();
+//
+// fill_src_from_clipboard();
 
 function copyTextToClipboard(text) {
   /*

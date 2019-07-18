@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
       }
       $('#cmn-toggle-selection-translate').prop('checked', isSelectionChecked);
       $('#cmn-toggle-page-translate').prop('checked', isPageChecked);
+      document.getElementById("sel").value = data.tar_lang;
    });
 });
 

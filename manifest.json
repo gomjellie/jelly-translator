@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "jellyTranslator",
   "description": "translates all page",
-  "version": "2.1.7",
+  "version": "2.2",
   "background": {
     "persistent": true,
     "scripts": [
@@ -21,7 +21,7 @@
     "webRequest",
     "webRequestBlocking",
     "<all_urls>",
-    "*://*.google.com/*",
+    "https://translate.google.com/*",
     "clipboardRead",
     "clipboardWrite"
   ],
@@ -37,10 +37,7 @@
       "js": [
         "js/lib/jquery-3.1.1.min.js",
         "js/lib/google.token.js",
-        "js/translate.js",
-        "js/lib/nhpup.js",
-        "js/select.js",
-        "js/papago_page_translation.js"
+        "js/translate.js"
       ],
       "matches": [
         "http://*/*",
