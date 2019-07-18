@@ -49,7 +49,6 @@ function translate(src_string, tar_lang, context) {
       if (req.readyState === 4) {
         if (req.status === 200) {
           var res_arr = eval(req.responseText); // convert string to array-like object
-          console.log(res_arr);
           var len = res_arr[0].length - 1;
           var ret = "";
           for (var i = 0; i < len; i++) {
@@ -101,33 +100,7 @@ function translatePopup(src_text) {
       on_success({translate_result: stored_string});
     }
   });
-
 }
-
-function translatePage() {
-  var page_base_url = "https://translate.google.com/translate?sl=auto&js=y&prev=_t&ie=UTF-8&edit-text=&act=url";
-  var current_url;
-  chrome.storage.sync.get(function (data) {
-    if (data)
-      tar_lang = data.tar_lang;
-    else
-      tar_lang = "ko";
-  });
-
-  chrome.tabs.query({
-    'active': true,
-    'currentWindow': true
-  }, function (tabs) {
-    current_url = tabs[0].url;
-
-    var translated_url = page_base_url + "&tl=" + tar_lang + "&hl=" + tar_lang + "&u=" + encodeURIComponent(current_url);
-
-    chrome.tabs.update({
-      url: translated_url
-    });
-  });
-}
-
 
 function selectionTranslate(selected_string) {
   chrome.storage.sync.get(function (data) {
@@ -175,62 +148,6 @@ function selectionTranslate(selected_string) {
 
   });
 }
-
-
-function iterateTranslate() {
-  var form = "<div style='background-color: #E5E5EA; width: inherit; color: #333333; border:none; border-radius: 4px; inset #808080; padding:1px; vertical-align:middle;'>";
-
-  function on_success(res) {
-    var translate_result = res.translate_result;
-    var context = res.context;
-    if (context === undefined) {
-      console.log("context undefined");
-      return;
-    }
-    context.append(form + translate_result + "</div>");
-    return translate_result;
-  }
-
-  function on_fail(req) {
-    window.location.href = req.responseURL;
-  }
-
-  chrome.storage.sync.get(function (data) {
-    var tar_lang = "ko";
-    if (data)
-      tar_lang = data.tar_lang;
-    else
-      tar_lang = "ko";
-
-    /* SOFT   <=   p  a  td h1 h2 h3 h4 li  div  =>   EXTREME */
-    $('p, h1, h2 ,h3, h4, span').each(function () {
-      var $this = $(this);
-
-      if ($this === undefined) {
-        console.log("cut off $this is undefined");
-        return ;
-      }
-      var text = $this.text();
-
-      var tidy_text = text.trim();
-      tidy_text = tidy_text.replace(/\s{2,}/g, '');
-
-      var stored_string = translate_cache.get(tidy_text, tar_lang);
-      if (stored_string === undefined) {
-        if (tidy_text.replace(/\s/g, '') === '') return;
-        translate(tidy_text, tar_lang, $this).then(on_success).catch(on_fail);
-      } else {
-        if (stored_string.replace(/\n/g, "") === tidy_text.replace(/\n/g, "")) {
-          return;
-        }
-
-        on_success({translate_result: stored_string, context: $this});
-      }
-
-    });
-  });
-}
-
 
 function beautify_result_html(ret) {
   return ret.replace(/(\n)/g, '<br/>').replace(/\. /g, '.<br/>');

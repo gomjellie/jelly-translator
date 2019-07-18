@@ -176,10 +176,27 @@ function executeScripts(tabId, injectDetailsArray) {
       callback(); // execute outermost function
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
   setShortCutHelp();
+  chrome.storage.sync.get(function(data) {
+    if (data) {
+      document.getElementById("sel").value = data.tar_lang;
+    }
+  });
 });
 
+$("select").change(function() {
+  var lang_selected = $(this).val();
+  if (lang_selected) {
+    chrome.storage.sync.set({
+      tar_lang: lang_selected
+    });
+    if (document.querySelector("#src")) {
+      console.log("#src exists");
+      translatePopup(document.querySelector('#src').value);
+    }
+  }
+});
 
 function fill_src_from_clipboard() {
   document.getElementById('src').select();
