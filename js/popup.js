@@ -114,6 +114,7 @@ function handleCommand(cmd) {
          chrome.storage.sync.set({
             tar_lang: languageDict[change_tar_lang]
          });
+         document.getElementById("sel").value = languageDict[change_tar_lang];
          translatePopup(cmd.split(">>")[0]);
       } else {
          document.querySelector('#result').innerText = change_tar_lang + " is not in languageDict";

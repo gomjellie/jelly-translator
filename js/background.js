@@ -225,7 +225,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     });
     chrome.storage.sync.set({
       selection_translate: true,
-      tar_lang: 'kr'
+      tar_lang: 'ko'
     });
 
     reload();
