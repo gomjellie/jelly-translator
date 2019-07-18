@@ -1,4 +1,5 @@
 var languageDict = {
+   'chinese': 'zh-CN',
    'chinese simplified': 'zh-CN',
    'chinese traditional': 'zh-TW',
    'english': 'en',
@@ -122,7 +123,7 @@ function handleCommand(cmd) {
 
 //팝업 페이지의 #src 입력된 값이 변경 되었을때
 if (document.querySelector("#src")) {
-   $("#src").on('keyup', function() {
+   $("#src").on('keydown', function() {
       var src = document.querySelector('#src').value;
       if (isCommands(src)) {
          handleCommand(src);
@@ -136,12 +137,13 @@ if (document.querySelector("#src")) {
 $(function() {
    $("#pasteBtn").click(function(e) {
       chrome.storage.sync.get(function(data) {
-         // chrome 72version 부터 CORS정책 회피가 불가해져서 부득이하게 off함
-         // return;
-         if (data.page_translate) {
-            fill_src_from_clipboard();
-         }
-         else {
+         fill_src_from_clipboard();
+         console.log(document.querySelector('#src').value);
+         translatePopup(document.querySelector('#src').value);
+
+         return;
+        // chrome 72version 부터 CORS정책 회피가 불가해져서 부득이하게 off함
+        if (!data.page_translate) {
             executeScripts(null, [{
                   file: "lib/jquery-3.1.1.min.js"
                },
@@ -152,7 +154,7 @@ $(function() {
                   code: "iterateTranslate();"
                }
             ]);
-         }
+        }
       });
    });
 });
@@ -178,12 +180,9 @@ $(document).ready(function () {
 });
 
 
-function fill_src_from_clipboard(response) {
+function fill_src_from_clipboard() {
   document.getElementById('src').select();
   document.execCommand('paste');
-  var src = document.getElementById('src').value;
-  translatePopup(src);
-  console.log(response);
 }
 //
 // fill_src_from_clipboard();
