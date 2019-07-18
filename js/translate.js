@@ -49,6 +49,7 @@ function translate(src_string, tar_lang, context) {
       if (req.readyState === 4) {
         if (req.status === 200) {
           var res_arr = eval(req.responseText); // convert string to array-like object
+          console.log(res_arr);
           var len = res_arr[0].length - 1;
           var ret = "";
           for (var i = 0; i < len; i++) {

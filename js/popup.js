@@ -66,6 +66,31 @@ var languageDict = {
    'yiddish': 'yi'
 };
 
+
+ClipBoard = {
+  copy: function (data) {
+    var copyFrom = $('<textarea/>');
+    copyFrom.text(data);
+    $('body').append(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
+    copyFrom.remove();
+    $("#src").select();
+  },
+  paste: function () {
+    return new Promise(function (resolve, reject) {
+      var copyFrom = $('<textarea id="tmp"/>');
+      $('body').append(copyFrom);
+      copyFrom.select();
+      document.execCommand('paste');
+      var src = document.getElementById('tmp').value;
+      copyFrom.remove();
+      $("#src").select();
+      resolve(src);
+    });
+  }
+};
+
 function getOs() {
   var OSName = "Unknown";
   if (window.navigator.userAgent.indexOf("Windows NT 10.0")!== -1) OSName="Windows 10";
@@ -87,6 +112,7 @@ function isCommands(cmd) {
       cmd === "reset" ||
       cmd === "donate" ||
       cmd === "manual" ||
+      cmd === "flush"  ||
       cmd.includes(">>")) {
 
       return true;
@@ -105,6 +131,21 @@ function setShortCutHelp() {
    else if(os.indexOf("Linux") !== -1) {
       document.querySelector("#src").placeholder = "Linux short cut : Ctrl + Shift + K"
    }
+}
+
+function setClipBoardHelp() {
+   // appending <a> tag doesn't work.....
+   ClipBoard.paste().then(function (res){
+     console.log("ClipBoard.get(): " + res);
+     if (res === "" || res === '\0') {
+       // do nothing
+     } else {
+        var clickForm = $("<a></a>");
+        clickForm.text("click");
+        clickForm.click(fill_src_from_clipboard);
+        document.querySelector("#result").append(clickForm[0].outerHTML);
+     }
+   });
 }
 
 function handleCommand(cmd) {
@@ -135,7 +176,10 @@ function handleCommand(cmd) {
          "url": "https://gomjellie.github.io/jelly-translator",
          "selected": true
       }, function(tab) {});
-   } else if (cmd.includes(">>")) {
+   } else if (cmd === "flush") {
+      ClipBoard.copy("\0");
+     document.querySelector('#result').innerText = "flushed!!";
+   }else if (cmd.includes(">>")) {
       var change_tar_lang = cmd.split(">>")[1].replace(/ /g, "").toLowerCase();
       if (change_tar_lang in languageDict) {
          chrome.storage.sync.set({
@@ -198,7 +242,11 @@ function executeScripts(tabId, injectDetailsArray) {
       callback(); // execute outermost function
 }
 
-setShortCutHelp();
+$(document).ready(function () {
+  setShortCutHelp();
+  setClipBoardHelp();
+});
+
 
 function fill_src_from_clipboard(response) {
   document.getElementById('src').select();
@@ -207,8 +255,8 @@ function fill_src_from_clipboard(response) {
   translatePopup(src);
   console.log(response);
 }
-
-fill_src_from_clipboard();
+//
+// fill_src_from_clipboard();
 
 function copyTextToClipboard(text) {
   /*

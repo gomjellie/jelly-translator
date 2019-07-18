@@ -36,7 +36,7 @@ var requestRules = [{
 }, {
     'data': {
         'name': 'Access-Control-Request-Headers',
-        'value': null
+        'value': "application/json"
     },
     'mandatory': false,
     'fn': function(rule, header, details) {
@@ -58,7 +58,7 @@ var responseRules = [{
 }, {
     'data': {
         'name': 'Access-Control-Allow-Headers',
-        'value': null
+        'value': "application/json"
     },
     'mandatory': true,
     'fn': function(rule, header, details) {

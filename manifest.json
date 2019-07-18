@@ -21,7 +21,7 @@
     "webRequest",
     "webRequestBlocking",
     "<all_urls>",
-    "*://*.google.com/*",
+    "https://translate.google.com/*",
     "clipboardRead",
     "clipboardWrite"
   ],
