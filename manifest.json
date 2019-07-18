@@ -37,9 +37,7 @@
       "js": [
         "js/lib/jquery-3.1.1.min.js",
         "js/lib/google.token.js",
-        "js/translate.js",
-        "js/lib/nhpup.js",
-        "js/select.js"
+        "js/translate.js"
       ],
       "matches": [
         "http://*/*",

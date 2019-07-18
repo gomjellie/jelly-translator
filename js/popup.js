@@ -1,69 +1,12 @@
 var languageDict = {
-   'afrikaans': 'af',
-   'albanian': 'sq',
-   'arabic': 'ar',
-   'azerbaijani': 'az',
-   'basque': 'eu',
-   'bengali': 'bn',
-   'belarusian': 'be',
-   'bulgarian': 'bg',
-   'catalan': 'ca',
-   'chinese': 'zh-CN',
    'chinese simplified': 'zh-CN',
    'chinese traditional': 'zh-TW',
-   'croatian': 'hr',
-   'czech': 'cs',
-   'danish': 'da',
-   'dutch': 'nl',
    'english': 'en',
-   'esperanto': 'eo',
-   'estonian': 'et',
-   'filipino': 'tl',
-   'finnish': 'fi',
-   'french': 'fr',
-   'galician': 'gl',
-   'georgian': 'ka',
-   'german': 'de',
-   'greek': 'el',
-   'gujarati': 'gu',
-   'haitian creole': 'ht',
-   'hebrew': 'iw',
-   'hindi': 'hi',
-   'hungarian': 'hu',
-   'icelandic': 'is',
-   'indonesian': 'id',
-   'irish': 'ga',
-   'italian': 'it',
    'japanese': 'ja',
-   'kannada': 'kn',
    'korean': 'ko',
-   'latin': 'la',
-   'latvian': 'lv',
-   'lithuanian': 'lt',
-   'macedonian': 'mk',
    'malay': 'ms',
-   'maltese': 'mt',
-   'norwegian': 'no',
-   'persian': 'fa',
-   'polish': 'pl',
-   'portuguese': 'pt',
-   'romanian': 'ro',
    'russian': 'ru',
-   'serbian': 'sr',
-   'slovak': 'sk',
-   'slovenian': 'sl',
-   'spanish': 'es',
-   'swahili': 'sw',
-   'swedish': 'sv',
-   'tamil': 'ta',
-   'telugu': 'te',
-   'thai': 'th',
-   'turkish': 'tr',
-   'ukrainian': 'uk',
-   'urdu': 'ur',
-   'vietnamese': 'vi',
-   'welsh': 'cy',
-   'yiddish': 'yi'
+   'spanish': 'es'
 };
 
 
@@ -133,21 +76,6 @@ function setShortCutHelp() {
    }
 }
 
-function setClipBoardHelp() {
-   // appending <a> tag doesn't work.....
-   ClipBoard.paste().then(function (res){
-     console.log("ClipBoard.get(): " + res);
-     if (res === "" || res === '\0') {
-       // do nothing
-     } else {
-        var clickForm = $("<a></a>");
-        clickForm.text("click");
-        clickForm.click(fill_src_from_clipboard);
-        document.querySelector("#result").append(clickForm[0].outerHTML);
-     }
-   });
-}
-
 function handleCommand(cmd) {
    if (cmd === 'help') {
       document.querySelector('#result').innerText = "command list:\n[help, option, who made this?, reset, donate]";
@@ -206,10 +134,13 @@ if (document.querySelector("#src")) {
 
 // when translate page button clicked
 $(function() {
-   $("#translateBtn").click(function(e) {
+   $("#pasteBtn").click(function(e) {
       chrome.storage.sync.get(function(data) {
-         if (data.page_translate)
-            translatePage();
+         // chrome 72version 부터 CORS정책 회피가 불가해져서 부득이하게 off함
+         // return;
+         if (data.page_translate) {
+            fill_src_from_clipboard();
+         }
          else {
             executeScripts(null, [{
                   file: "lib/jquery-3.1.1.min.js"
@@ -244,7 +175,6 @@ function executeScripts(tabId, injectDetailsArray) {
 
 $(document).ready(function () {
   setShortCutHelp();
-  setClipBoardHelp();
 });
 
 
